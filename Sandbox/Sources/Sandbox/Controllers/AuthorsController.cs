@@ -6,8 +6,10 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.ModelBinding;
 using Sandbox.DAL;
 using Sandbox.Models;
+using System.Linq.Dynamic;
 
 namespace Sandbox.Controllers
 {
@@ -16,9 +18,11 @@ namespace Sandbox.Controllers
         private BookContext db = new BookContext();
 
         // GET: Authors
-        public ActionResult Index()
+        public ActionResult Index([Form] QueryOptions queryOptions)
         {
-            return View(db.Authors.ToList());
+            var authors = db.Authors.OrderBy(queryOptions.Sort);
+            ViewBag.QueryOptions = queryOptions;
+            return View(authors.ToList());
         }
 
         // GET: Authors/Details/5

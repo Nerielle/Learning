@@ -1,7 +1,9 @@
-﻿@model IEnumerable<Sandbox.Models.Author>
+﻿@using Sandbox.Models
+@model IEnumerable<Sandbox.Models.Author>
 
 @{
     ViewBag.Title = "Authors";
+    var queryOptions = (QueryOptions)ViewBag.QueryOptions;
 }
 
 <h2>Authors</h2>
@@ -13,13 +15,13 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.FirstName)
+                @Html.BuildSortableLink("First Name", "Index", "FirstName",queryOptions)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.LastName)
+                @Html.BuildSortableLink("Last Name", "Index", "LastName", queryOptions)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Biography)
+                @Html.BuildSortableLink("Biography", "Index", "Biography", queryOptions)
             </th>
             <th>Actions</th>
         </tr>
