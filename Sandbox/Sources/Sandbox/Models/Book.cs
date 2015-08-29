@@ -19,8 +19,6 @@ namespace Sandbox.Models
 
         public string Description { get; set; }
 
-        public string ImageUrl { get; set; }
-
         public virtual Author Author { get; set; }
     }
 }
