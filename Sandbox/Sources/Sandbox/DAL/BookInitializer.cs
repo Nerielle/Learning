@@ -9,47 +9,49 @@ namespace Sandbox.DAL
     {
         protected override void Seed(BookContext context)
         {
-            var author = new Author
+            var authorProfessor = new Author
             {
                 Biography = "...",
                 FirstName = "John",
-                LastName = "Tolkien"
+                LastName = "Tolkien",
+                Books = new List<Book>
+                             {
+                               new Book {
+                               Description = "...",
+                               Isbn = "1491914319",
+                               Synopsis = "...",
+                               Title = "Two Towers"
+                               },
+                               new Book {
+                               Description = "...",
+                               Isbn = "1449319548",
+                               Synopsis = "...",
+                               Title = "The Fellowship of the Ring"
+                               },
+                               new Book {
+                               Description = "...",
+                               Isbn = "1449309860",
+                               Synopsis = "...",
+                               Title = "The return of the King"
+                               },
+                               new Book {
+                               Description = "...",
+                               Isbn = "1460954394",
+                               Synopsis = "...",
+                               Title = "The Hobbit: An Unexpected Journey"
+                                }
+                              }
             };
 
-            var books = new List<Book>
-     {
-       new Book {
-       Author = author,
-       Description = "...",
-       Isbn = "1491914319",
-       Synopsis = "...",
-       Title = "Two Towers"
-       },
-       new Book {
-       Author = author,
-       Description = "...",
-       Isbn = "1449319548",
-       Synopsis = "...",
-       Title = "The Fellowship of the Ring"
-       },
-       new Book {
-       Author = author,
-       Description = "...",
-       Isbn = "1449309860",
-       Synopsis = "...",
-       Title = "The return of the King"
-       },
-       new Book {
-       Author = author,
-       Description = "...",
-       Isbn = "1460954394",
-       Synopsis = "...",
-       Title = "The Hobbit: An Unexpected Journey"
-        }
-     };
-
-            books.ForEach(b => context.Books.Add(b));
-
+            var authorHarry = new Author
+            {
+                FirstName = "Harry",
+                LastName = "Harrison",
+                Biography = "American science fiction (SF) author",
+                Books = new List<Book> { new Book { Title = "The Stainless Steel Rat", Isbn = "123456789" } }
+            };
+            context.Authors.Add(authorProfessor);
+            context.Authors.Add(authorHarry);
             context.SaveChanges();
         }
     }
