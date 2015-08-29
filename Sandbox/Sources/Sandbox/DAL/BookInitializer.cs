@@ -3,7 +3,7 @@ using Sandbox.Models;
 using System.Collections.Generic;
 using System.Data.Entity;
 
-namespace BootstrapIntroduction.DAL
+namespace Sandbox.DAL
 {
     public class BookInitializer : DropCreateDatabaseIfModelChanges<BookContext>
     {
