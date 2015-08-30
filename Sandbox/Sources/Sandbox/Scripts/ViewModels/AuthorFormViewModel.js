@@ -7,17 +7,17 @@
 
     self.Author = {
         Id: author.Id,
-        FirstName: ko.observable(),
-        LastName: ko.observable(),
-        Biography: ko.observable()
+        FirstName: ko.observable(author.FirstName),
+        LastName: ko.observable(author.LastName),
+        Biography: ko.observable(author.Biography)
     };
     self.ValidateAndSave = function (form) {
-        if ($(form).Valid() == false) {
+        if ($(form).valid() == false) {
             return false;
         }
 
         self.Sending(true);
-        self.Author._RequestVerificationToken = form[0].Value;
+        self.Author.__RequestVerificationToken = form[0].value;
 
         $.ajax({
             url: self.isCreating ? 'Create' : 'Edit',
@@ -41,7 +41,7 @@
             else {
                 location.href = '../';
             }
-        }, 4000);
+        }, 1000);
     };
 
     self.errorSave = function () {
