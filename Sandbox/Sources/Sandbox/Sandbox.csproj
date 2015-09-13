@@ -217,6 +217,7 @@
     <Content Include="Scripts\ViewModels\AuthorFormViewModel.js" />
     <Content Include="Scripts\ViewModels\AuthorIndexViewModel.js" />
     <Content Include="Scripts\ViewModels\BookFormViewModel.js" />
+    <Content Include="Scripts\ViewModels\BookIndexViewModel.js" />
     <Content Include="Scripts\_references.js" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
