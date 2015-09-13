@@ -7,7 +7,7 @@
 
     self.book = {
         Id: book.Id,
-        Author: ko.observable(book.Author),
+        AuthorId: ko.observable(book.AuthorId),
         Title: ko.observable(book.Title),
         Isbn: ko.observable(book.Isbn),
         Synopsis: ko.observable(book.Synopsis),

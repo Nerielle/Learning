@@ -1,4 +1,6 @@
-﻿@model Sandbox.Models.Book
+﻿@using System.Runtime.InteropServices.ComTypes
+@using System.Runtime.Serialization
+@model Sandbox.Models.Book
 
 @{
     var isCreating = Model.Id == 0;
@@ -21,7 +23,8 @@
             <div class="form-group">
                 @Html.LabelFor(model => model.AuthorId, "AuthorId", htmlAttributes: new {@class = "control-label col-md-2"})
                 <div class="col-md-10">
-                    @Html.DropDownList("AuthorId", null, htmlAttributes: new {@class = "form-control"})
+                    @Html.DropDownList("AuthorId", null, htmlAttributes: new {@class = "form-control",
+                   data_bind ="value: book.AuthorId"})
                     @Html.ValidationMessageFor(model => model.AuthorId, "", new {@class = "text-danger"})
                 </div>
             </div>
@@ -29,7 +32,9 @@
             <div class="form-group">
                 @Html.LabelFor(model => model.Title, htmlAttributes: new {@class = "control-label col-md-2"})
                 <div class="col-md-10">
-                    @Html.EditorFor(model => model.Title, new {htmlAttributes = new {@class = "form-control"}})
+                    @Html.EditorFor(model => model.Title, new {htmlAttributes = new {@class = "form-control",
+                   data_bind ="value: book.Title"}
+               })
                     @Html.ValidationMessageFor(model => model.Title, "", new {@class = "text-danger"})
                 </div>
             </div>
@@ -37,7 +42,11 @@
             <div class="form-group">
                 @Html.LabelFor(model => model.Isbn, htmlAttributes: new {@class = "control-label col-md-2"})
                 <div class="col-md-10">
-                    @Html.EditorFor(model => model.Isbn, new {htmlAttributes = new {@class = "form-control"}})
+                    @Html.EditorFor(model => model.Isbn, new
+                    {
+                        htmlAttributes = new {@class = "form-control"},
+                        data_bind="value: book.Isbn"
+                    })
                     @Html.ValidationMessageFor(model => model.Isbn, "", new {@class = "text-danger"})
                 </div>
             </div>
@@ -45,7 +54,11 @@
             <div class="form-group">
                 @Html.LabelFor(model => model.Synopsis, htmlAttributes: new {@class = "control-label col-md-2"})
                 <div class="col-md-10">
-                    @Html.EditorFor(model => model.Synopsis, new {htmlAttributes = new {@class = "form-control"}})
+                    @Html.EditorFor(model => model.Synopsis, new
+                    {
+                        htmlAttributes = new {@class = "form-control"},
+                        data_bind = "value: book.Synopsis"
+                    })
                     @Html.ValidationMessageFor(model => model.Synopsis, "", new {@class = "text-danger"})
                 </div>
             </div>
@@ -53,7 +66,11 @@
             <div class="form-group">
                 @Html.LabelFor(model => model.Description, htmlAttributes: new {@class = "control-label col-md-2"})
                 <div class="col-md-10">
-                    @Html.EditorFor(model => model.Description, new {htmlAttributes = new {@class = "form-control"}})
+                    @Html.EditorFor(model => model.Description, new {htmlAttributes = new
+                    {
+                        @class = "form-control",
+                        data_bind = "value: book.Description"
+                    }})
                     @Html.ValidationMessageFor(model => model.Description, "", new {@class = "text-danger"})
                 </div>
             </div>
@@ -88,7 +105,7 @@
 </div>
 
 @section Scripts{
-    @Scripts.Render("~/bundles/jqueryval", "Scripts/ViewModels/BookFormViewModel.js")
+    @Scripts.Render("~/bundles/jqueryval", "/Scripts/ViewModels/BookFormViewModel.js")
     <script>
         var viewModel = new BookFormViewModel(@Html.HtmlConvertToJson(Model));
         ko.applyBindings(viewModel);

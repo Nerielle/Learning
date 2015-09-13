@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Web;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace Sandbox.Models
 {
@@ -10,6 +6,7 @@ namespace Sandbox.Models
     {
         public int Id { get; set; }
 
+        [Required]
         public int AuthorId { get; set; }
 
         [Required]
@@ -21,7 +18,7 @@ namespace Sandbox.Models
 
         public string Description { get; set; }
 
-        [Required]
+
         public virtual Author Author { get; set; }
     }
 }
