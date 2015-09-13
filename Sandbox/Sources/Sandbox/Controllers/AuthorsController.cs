@@ -18,6 +18,11 @@ namespace Sandbox.Controllers
     {
         private BookContext db = new BookContext();
 
+         static AuthorsController()
+        {
+            AutoMapper.Mapper.CreateMap<Author, AuthorViewModel>();
+        }
+
         // GET: Authors
         public ActionResult Index([Form] QueryOptions queryOptions)
         {
@@ -27,7 +32,7 @@ namespace Sandbox.Controllers
                 .Take(queryOptions.PageSize);
             queryOptions.TotalPages = (int)Math.Ceiling((double)db.Authors.Count() / queryOptions.PageSize);
             ViewBag.QueryOptions = queryOptions;
-            return View(authors.ToList());
+            return View(AutoMapper.Mapper.Map<List<Author>, List<AuthorViewModel>>(authors.ToList()));
         }
 
         // GET: Authors/Details/5

@@ -1,10 +1,9 @@
-﻿@using Sandbox.Models
-@using Sandbox.ViewModels
-@model IEnumerable<Sandbox.Models.Author>
+﻿@using Sandbox.ViewModels
+@model IEnumerable<Sandbox.ViewModels.AuthorViewModel>
 
 @{
     ViewBag.Title = "Authors";
-    var queryOptions = (QueryOptions)ViewBag.QueryOptions;
+    var queryOptions = (QueryOptions) ViewBag.QueryOptions;
 }
 
 <h2>Authors</h2>
@@ -15,33 +14,39 @@
 <div style="display: none" data-bind="visible: authors.length > 0">
     <table class="table table-bordered table-striped">
         <thead>
-            <tr>
-                <th>
-                    @Html.BuildSortableLink("First Name", "Index", "FirstName", queryOptions)
-                </th>
-                <th>
-                    @Html.BuildSortableLink("Last Name", "Index", "LastName", queryOptions)
-                </th>
-                <th>
-                    @Html.BuildSortableLink("Biography", "Index", "Biography", queryOptions)
-                </th>
-                <th>Actions</th>
-            </tr>
+        <tr>
+            <th>
+                @Html.BuildSortableLink("First Name", "Index", "FirstName", queryOptions)
+            </th>
+            <th>
+                @Html.BuildSortableLink("Last Name", "Index", "LastName", queryOptions)
+            </th>
+            <th>
+                @Html.BuildSortableLink("Biography", "Index", "Biography", queryOptions)
+            </th>
+            <th>Actions</th>
+        </tr>
         </thead>
         <tbody data-bind="foreach: authors">
-            <tr>
-                <td data-bind="text: FirstName"></td>
-                <td data-bind="text: LastName"></td>
-                <td data-bind="text: Biography"></td>
-                <td>
-                    <a data-bind="attr: {href: '@Url.Action("Details")/' + Id}"
-                       class="btn btn-info">Details</a>
-                    <a data-bind="attr: {href: '@Url.Action("Edit")/' + Id}"
-                       class="btn btn-primary">Edit</a>
-                    <a data-bind="click: $parent.showDeleteModal, attr:{href: '@Url.Action("Delete")/' + Id}"
-                       class="btn btn-danger">Delete</a>
-                </td>
-            </tr>
+        <tr>
+            <td data-bind="text: FirstName"></td>
+            <td data-bind="text: LastName"></td>
+            <td data-bind="text: Biography"></td>
+            <td>
+                <a data-bind="attr: {href: '@Url.Action("Details")/' + Id}"
+                   class="btn btn-info">
+                    Details
+                </a>
+                <a data-bind="attr: {href: '@Url.Action("Edit")/' + Id}"
+                   class="btn btn-primary">
+                    Edit
+                </a>
+                <a data-bind="click: $parent.showDeleteModal, attr:{href: '@Url.Action("Delete")/' + Id}"
+                   class="btn btn-danger">
+                    Delete
+                </a>
+            </td>
+        </tr>
         </tbody>
     </table>
     @Html.BuildNextPreviousLinks(queryOptions, "Index")
@@ -57,8 +62,8 @@
 </div>
 @section Scripts{
     @Scripts.Render("/Scripts/ViewModels/AuthorIndexViewModel.js")
-    <script>      
+    <script>
         var viewModel = new AuthorIndexViewModel(@Html.HtmlConvertToJson(Model));
-        ko.applyBindings(viewModel);        
+        ko.applyBindings(viewModel);
     </script>
-    }
+}
