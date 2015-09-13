@@ -1,10 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Data;
 using System.Data.Entity;
 using System.Linq;
+using System.Linq.Dynamic;
 using System.Net;
-using System.Web;
+using System.Web.ModelBinding;
 using System.Web.Mvc;
 using Sandbox.DAL;
 using Sandbox.Models;
@@ -13,12 +12,18 @@ namespace Sandbox.Controllers
 {
     public class BooksController : Controller
     {
-        private BookContext db = new BookContext();
+        private readonly BookContext db = new BookContext();
 
         // GET: Books
-        public ActionResult Index()
+        public ActionResult Index([Form] QueryOptions queryOptions)
         {
-            var books = db.Books.Include(b => b.Author);
+            var start = (queryOptions.CurrentPage - 1)*queryOptions.PageSize;
+            var books = db.Books.Include(x => x.Author)
+                .OrderBy(queryOptions.Sort)
+                .Skip(start)
+                .Take(queryOptions.PageSize);
+            queryOptions.TotalPages = (int) Math.Ceiling((double) db.Books.Count()/queryOptions.PageSize);
+            ViewBag.QueryOptions = queryOptions;
             return View(books.ToList());
         }
 
@@ -29,7 +34,7 @@ namespace Sandbox.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Book book = db.Books.Find(id);
+            var book = db.Books.Find(id);
             if (book == null)
             {
                 return HttpNotFound();
@@ -69,7 +74,7 @@ namespace Sandbox.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Book book = db.Books.Find(id);
+            var book = db.Books.Find(id);
             if (book == null)
             {
                 return HttpNotFound();
@@ -102,7 +107,7 @@ namespace Sandbox.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Book book = db.Books.Find(id);
+            var book = db.Books.Find(id);
             if (book == null)
             {
                 return HttpNotFound();
@@ -115,7 +120,7 @@ namespace Sandbox.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Book book = db.Books.Find(id);
+            var book = db.Books.Find(id);
             db.Books.Remove(book);
             db.SaveChanges();
             return RedirectToAction("Index");
