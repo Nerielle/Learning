@@ -188,6 +188,7 @@
     <Compile Include="Models\Book.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="ViewModels\AuthorViewModel.cs" />
     <Compile Include="ViewModels\QueryOptions.cs" />
     <Compile Include="ViewModels\SortOrder.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
