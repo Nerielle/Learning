@@ -34,19 +34,26 @@
                 <td><span>
                     <a data-bind="attr: {href: '@Url.Action("Details")/' + Id}" class="btn btn-info">Details</a>  
                         <a data-bind="attr: {href: '@Url.Action("Edit")/' + Id}" class="btn btn-primary">Edit</a>  
-                        <a data-bind="attr: {href: '@Url.Action("Delete")/' + Id}" class="btn btn-danger">Delete</a>
+                        <a data-bind="click: $parent.showDeleteModal, attr: { href: '@Url.Action("Delete")/' + Id }"
+                           class="btn btn-danger">Delete</a>
                     </span></td>
             </tr>
         </tbody>
     </table>
-@Html.BuildNextPreviousLinks(queryOptions,"Index");
+@Html.BuildNextPreviousLinks(queryOptions, "Index");
+
+<div style="display: none" data-bind="visible: books.length == 0" class="alert alert-warning alert-dismissable" role="alert">
+    <button type="button" class="close" data-dissmiss="alert">
+        <span aria-hidden="true">&times;</span>
+        <span class="sr-only">Close</span>
+    </button>
+    There are no elements to display.
+    Click @Html.ActionLink("here", "Create") to create new one.
+</div>
 @section Scripts{
+    @Scripts.Render("/Scripts/ViewModels/BookIndexViewModel.js")
     <script>
-        function ViewModel(books){
-        var self = this;
-        self.books = books;
-        };
-        var viewModel = new ViewModel(@Html.HtmlConvertToJson(Model));
+        var viewModel = new BookIndexViewModel(@Html.HtmlConvertToJson(Model));
         ko.applyBindings(viewModel);
     </script>
     }

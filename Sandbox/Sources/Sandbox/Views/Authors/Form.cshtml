@@ -7,7 +7,8 @@
 }
 <div data-bind="visible: !SaveCompleted()">
     <h2>@ViewBag.Title</h2>
-    @using (Html.BeginForm("Create", "Authors", FormMethod.Post, new { data_bind = "submit: ValidateAndSave" }))
+    @using (Html.BeginForm("Create", "Authors", FormMethod.Post, 
+        new { data_bind = "submit: ValidateAndSave" }))
     {
         @Html.AntiForgeryToken()
 
