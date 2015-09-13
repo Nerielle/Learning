@@ -46,7 +46,7 @@ namespace Sandbox.Controllers
         public ActionResult Create()
         {
             ViewBag.AuthorId = new SelectList(db.Authors, "Id", "FirstName");
-            return View();
+            return View("BookForm", new Book());
         }
 
         // POST: Books/Create
@@ -80,7 +80,7 @@ namespace Sandbox.Controllers
                 return HttpNotFound();
             }
             ViewBag.AuthorId = new SelectList(db.Authors, "Id", "FirstName", book.AuthorId);
-            return View(book);
+            return View("BookForm", book);
         }
 
         // POST: Books/Edit/5
