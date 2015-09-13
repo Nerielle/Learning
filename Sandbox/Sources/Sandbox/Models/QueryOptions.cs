@@ -12,7 +12,7 @@ namespace Sandbox.Models
             SortField = "Id";
             SortOrder = SortOrder.Asc;
             CurrentPage = 1;
-            PageSize = 1;
+            PageSize = 3;
         }
         public int CurrentPage { get; set; }
 
