@@ -7,6 +7,7 @@ using System.Web.ModelBinding;
 using System.Web.Mvc;
 using Sandbox.DAL;
 using Sandbox.Models;
+using Sandbox.ViewModels;
 
 namespace Sandbox.Controllers
 {
