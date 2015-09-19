@@ -18,7 +18,7 @@ namespace Sandbox.Controllers
     {
         private BookContext db = new BookContext();
 
-         static AuthorsController()
+        static AuthorsController()
         {
             AutoMapper.Mapper.CreateMap<Author, AuthorViewModel>();
         }
@@ -53,7 +53,7 @@ namespace Sandbox.Controllers
         // GET: Authors/Create
         public ActionResult Create()
         {
-            return View("Form", new Author());
+            return View("Form", new AuthorViewModel());
         }
 
         // POST: Authors/Create
@@ -61,11 +61,11 @@ namespace Sandbox.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,FirstName,LastName,Biography")] Author author)
+        public ActionResult Create([Bind(Include = "Id,FirstName,LastName,Biography")] AuthorViewModel author)
         {
             if (ModelState.IsValid)
             {
-                db.Authors.Add(author);
+                db.Authors.Add(AutoMapper.Mapper.Map<AuthorViewModel, Author>(author));
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
@@ -85,7 +85,7 @@ namespace Sandbox.Controllers
             {
                 return HttpNotFound();
             }
-            return View("Form", author);
+            return View("Form", AutoMapper.Mapper.Map<Author, AuthorViewModel>(author));
         }
 
         // POST: Authors/Edit/5
@@ -93,11 +93,11 @@ namespace Sandbox.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,FirstName,LastName,Biography")] Author author)
+        public ActionResult Edit([Bind(Include = "Id,FirstName,LastName,Biography")] AuthorViewModel author)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(author).State = EntityState.Modified;
+                db.Entry(AutoMapper.Mapper.Map<AuthorViewModel, Author>(author)).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
@@ -116,7 +116,7 @@ namespace Sandbox.Controllers
             {
                 return HttpNotFound();
             }
-            return View(author);
+            return View(AutoMapper.Mapper.Map<Author, AuthorViewModel>(author));
         }
 
         // POST: Authors/Delete/5
