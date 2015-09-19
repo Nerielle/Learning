@@ -1,0 +1,14 @@
+﻿using System.Collections.Generic;
+using Newtonsoft.Json;
+
+namespace Sandbox.ViewModels
+{
+    public class ResultList<T>
+    {
+        [JsonProperty(PropertyName = "queryOptions")]
+        public QueryOptions QueryOptions { get; set; }
+
+        [JsonProperty(PropertyName = "results")]
+        public List<T> Results { get; set; }
+    }
+}

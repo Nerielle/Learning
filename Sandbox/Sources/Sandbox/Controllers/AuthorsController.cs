@@ -10,6 +10,7 @@ using System.Web.ModelBinding;
 using Sandbox.DAL;
 using Sandbox.Models;
 using System.Linq.Dynamic;
+using AutoMapper;
 using Sandbox.ViewModels;
 
 namespace Sandbox.Controllers
@@ -20,7 +21,7 @@ namespace Sandbox.Controllers
 
         static AuthorsController()
         {
-            AutoMapper.Mapper.CreateMap<Author, AuthorViewModel>();
+            Mapper.CreateMap<Author, AuthorViewModel>();
         }
 
         // GET: Authors
