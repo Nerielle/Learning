@@ -8,13 +8,12 @@ namespace Dal.Mapping
         {
             Table("Article");
             Property(x=>x.Content);
-            Property(x=>x.Date);
             Property(x=>x.Description, map=>map.NotNullable(false));
             Property(x=>x.Title);
             Bag(x=>x.Comments, map =>
             {
                 map.Key(x=>x.Column("ArticleId"));
-            });
+            }, map=>map.OneToMany());
         }
     }
 }

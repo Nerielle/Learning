@@ -8,7 +8,6 @@ namespace Dal.Mapping
         {
             Table("Comment");
             Property(x => x.Content);
-            Property(x => x.Date);
             ManyToOne(x => x.Article);
         }
     }

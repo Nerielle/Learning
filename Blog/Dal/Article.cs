@@ -6,6 +6,11 @@ namespace Dal
 {
     public class Article:DomainObject
     {
+        public Article()
+        {
+            Comments = new List<Comment>();
+        }
+
         public virtual string Title { get; set; }
         public virtual string Description { get; set; }
         public virtual string Content { get; set; }
