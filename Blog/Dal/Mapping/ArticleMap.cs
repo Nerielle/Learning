@@ -7,7 +7,6 @@ namespace Dal.Mapping
         public ArticleMap()
         {
             Table("Article");
-            Id(x=>x.Id);
             Property(x=>x.Content);
             Property(x=>x.Date);
             Property(x=>x.Description, map=>map.NotNullable(false));

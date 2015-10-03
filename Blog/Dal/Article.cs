@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using Dal.Mapping;
 
 namespace Dal
 {
-    public class Article
+    public class Article:DomainObject
     {
-        public virtual Guid Id { get; set; }
         public virtual string Title { get; set; }
         public virtual string Description { get; set; }
         public virtual string Content { get; set; }
