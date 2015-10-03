@@ -52,11 +52,13 @@
     <Compile Include="Article.cs" />
     <Compile Include="DomainObject.cs" />
     <Compile Include="Mapping\DomainObjectMap.cs" />
+    <Compile Include="Repository.cs" />
     <Compile Include="SessionFactory.cs" />
     <Compile Include="Comment.cs" />
     <Compile Include="Mapping\ArticleMap.cs" />
     <Compile Include="Mapping\CommentMap.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="UnitOfWork.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
