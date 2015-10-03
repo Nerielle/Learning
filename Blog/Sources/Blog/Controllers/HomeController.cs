@@ -1,4 +1,5 @@
-﻿using System.Web.Mvc;
+﻿using System;
+using System.Web.Mvc;
 using Dal;
 
 namespace Blog.Controllers
@@ -11,6 +12,14 @@ namespace Blog.Controllers
         {
             var articles = repository.GetArticles();
             return View(articles);
+        }
+
+        public ActionResult Add()
+        {
+            var article = new Article() {Title = "New article", Id = Guid.Empty};
+            var articles = repository.GetArticles();
+            articles.Add(article);
+            return View("Index",articles);
         }
 
         public ActionResult About()
