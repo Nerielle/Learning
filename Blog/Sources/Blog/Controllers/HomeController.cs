@@ -1,17 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.Mvc;
+﻿using System.Web.Mvc;
+using Dal;
 
 namespace Blog.Controllers
 {
     public class HomeController : Controller
     {
+        private readonly Repository repository = new Repository();
 
         public ActionResult Index()
         {
-            return View();
+            var articles = repository.GetArticles();
+            return View(articles);
         }
 
         public ActionResult About()
