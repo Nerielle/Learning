@@ -2,7 +2,7 @@
 
 namespace Dal.Mapping
 {
-    public class CommentMap : ClassMapping<Comment>
+    public class CommentMap : DomainObjectMap<Comment>
     {
         public CommentMap()
         {

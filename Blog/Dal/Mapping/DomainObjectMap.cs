@@ -2,7 +2,7 @@
 
 namespace Dal.Mapping
 {
-    public class DomainObjectMap:ClassMapping<DomainObject>
+    public class DomainObjectMap<T>:ClassMapping<T> where T:DomainObject
     {
         public DomainObjectMap()
         {

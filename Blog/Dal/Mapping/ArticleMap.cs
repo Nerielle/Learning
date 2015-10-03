@@ -2,7 +2,7 @@
 
 namespace Dal.Mapping
 {
-    public class ArticleMap:ClassMapping<Article>
+    public class ArticleMap:DomainObjectMap<Article>
     {
         public ArticleMap()
         {
