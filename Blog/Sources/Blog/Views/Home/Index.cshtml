@@ -11,15 +11,7 @@
         <select multiple class="form-control" aria-selected="True">
             @foreach (var article in Model)
             {
-                if (article.Id == Guid.Empty)
-                {
-                    <option selected="selected">@article.Title</option>
-                }
-                else
-                {
-                    <option id="@article.Id">@article.Title</option>
-                }
-
+               <option @(article.Id == ViewBag.SelectedOption ? "selected" : "")>@article.Title</option>
             }
         </select>
     </div>

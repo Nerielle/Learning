@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Web.Mvc;
 using Dal;
 
@@ -11,6 +12,7 @@ namespace Blog.Controllers
         public ActionResult Index()
         {
             var articles = repository.GetArticles();
+            ViewBag.SelectedOption = articles.Any() ? articles.First().Id : Guid.Empty;
             return View(articles);
         }
 
@@ -19,6 +21,7 @@ namespace Blog.Controllers
             var article = new Article() {Title = "New article", Id = Guid.Empty};
             var articles = repository.GetArticles();
             articles.Add(article);
+            ViewBag.SelectedOption = Guid.Empty;
             return View("Index",articles);
         }
 
