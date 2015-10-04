@@ -1,0 +1,2 @@
+﻿var Blog = {};
+Blog.viewmodels = {};
