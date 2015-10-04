@@ -1,4 +1,5 @@
 ﻿@using System.Collections
+@using Newtonsoft.Json
 @model IList<Dal.Article>
 @{
     ViewBag.Title = "Home Page";
@@ -8,11 +9,8 @@
         <div class="col-md-4">
             @*<h2>Articles</h2>*@
             <br />
-            <select multiple class="form-control" aria-selected="True">
-                @foreach (var article in Model)
-            {
-                    <option @(article.Id == ViewBag.SelectedOption ? "selected" : "")>@article.Title</option>
-                }
+            <select multiple class="form-control" aria-selected="True" data-bind="foreach: articles">
+                    <option data-bind="text: title"></option>
             </select>
         </div>
         <br />
@@ -42,4 +40,13 @@
         </div>
     </div>
 </div>
+@section scripts{
+    @JavaScript.AddCustom("ViewModels/default-page-view-model.js")
+    <script type="text/javascript">
+        @{
+            IHtmlString articleList = Html.Raw(JsonConvert.SerializeObject(Model));
+        }
+        Blog.viewmodels.defaultpage.bindArticleList(@Html.Raw(articleList));
+    </script>
+}
 

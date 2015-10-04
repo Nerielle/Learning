@@ -1,0 +1,13 @@
+﻿@helper Add(string fileName)
+{
+    <script src="@Href("~/Scripts/" + fileName)" type="text/javascript"> </script>
+}
+
+@helper AddCustom(string fileName)
+{
+    <script src="@Href("~/ScriptsCustom/" + fileName)" type="text/javascript"> </script>
+}
+
+@helper AddKnockout(){
+    @Add("knockout-3.3.0.js")
+}

@@ -8,7 +8,7 @@ namespace Dal.Mapping
         {
             Table("Comment");
             Property(x => x.Content);
-            ManyToOne(x => x.Article, map=>map.Column("ArticleId"));
+            //ManyToOne(x => x.Article, map=>map.Column("ArticleId"));
         }
     }
 }
