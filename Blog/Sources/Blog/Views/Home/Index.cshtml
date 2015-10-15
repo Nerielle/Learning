@@ -17,11 +17,11 @@
             </select>
         </div>
         <br />
-        <div class="col-md-8">
+        <div class="col-md-8" data-bind="visible: selectedItem().length!=0">
             <form class="form-horizontal">
                 <div class="row">
                     <div class="media-heading">
-                        <h2 class="col-sm-10"  id="inputTitle" data-bind="value: selectedItem[0].title">title
+                        <h2 class="col-sm-10"  id="inputTitle" data-bind="value: selectedItem()[0].title">title
                         </h2>
                     </div>
                     <div class="text-justify text-info">
