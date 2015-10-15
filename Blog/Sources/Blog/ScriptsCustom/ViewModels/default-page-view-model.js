@@ -1,18 +1,18 @@
 ﻿Blog.viewmodels.defaultpage = function ($, ko) {
     function articleViewModel(model) {
         var self = this;
-        self.id = model.Id;
-        self.title = model.Title;
-        self.description = model.Description;
-        self.content = model.Content;
+        self.id = model.id;
+        self.title = model.title;
+        self.description = model.description;
+        self.content = model.content;
         self.date = model.Date;
-        self.selectedItem = ko.observable({});
+        //self.selectedItem = ko.observable({});
 
         function initComments() {
-            if (!model.Comments) {
+            if (!model.comments) {
                 return [];
             }
-            return model.Comments.map(function (item) {
+            return model.comments.map(function (item) {
                 return {
                     date: item.Date,
                     content: item.Content,
@@ -42,8 +42,8 @@
         
         var viewModel =  {
             
-            articles: articles,
-            selectedItem : ko.observable()
+            articles: ko.observableArray(articles),
+            selectedItem : ko.observable([])
             //self.selectedItem = self.articles[0];
             //self.selectedArticle = ko.observable();
             //self.selectedArticle = $.grep(articles, function(item) {

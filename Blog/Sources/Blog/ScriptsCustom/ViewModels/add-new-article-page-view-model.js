@@ -1,6 +1,5 @@
 ﻿Blog.viewmodels.newArticlePage = function ($, ko) {
     function articleViewModel(model) {
-        //Console.log(model);
         var self = this;
         self.id = model.Id;
         self.title = model.Title;
@@ -29,9 +28,13 @@
                 url: "SaveArticle",
                 data: ko.toJSON(self),
                 success: function () {
-                    window.location.href = "/";
+                    location.href = "Index";
+                
                 },
-                contentType:"application/json"
+                contentType: "application/json",
+                error: function() {
+                    alert("Can't save");
+                }
             });
         }
     }
