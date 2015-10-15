@@ -50,13 +50,11 @@ namespace UnitTests
                     Date = DateTime.UtcNow.Date,
                     Title = title
                 };
-                var comment = new Comment()
+                article.Comments.Add(new Comment()
                 {
                     Content = commentContent,
                     Date = DateTime.UtcNow.Date,
-                    //Article = article
-                };
-                article.Comments.Add(comment);
+                });
                 session.Save(article);
                 tx.Commit();
             }

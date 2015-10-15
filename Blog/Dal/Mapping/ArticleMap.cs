@@ -1,4 +1,5 @@
-﻿using NHibernate.Mapping.ByCode.Conformist;
+﻿using NHibernate.Mapping.ByCode;
+using NHibernate.Mapping.ByCode.Conformist;
 
 namespace Dal.Mapping
 {
@@ -12,7 +13,12 @@ namespace Dal.Mapping
             Property(x=>x.Title);
             Bag(x=>x.Comments, map =>
             {
-                map.Key(x=>x.Column("ArticleId"));
+                map.Key(x =>
+                {
+                    x.Column("ArticleId");
+                    x.NotNullable(false);
+                });
+
             }, map=>map.OneToMany());
         }
     }

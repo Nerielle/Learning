@@ -62,4 +62,7 @@
     <Build Include="Article.table.sql" />
     <Build Include="Comment.table.sql" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="BlogDatabase.publish.xml" />
+  </ItemGroup>
 </Project>

@@ -14,7 +14,7 @@ namespace Dal
 
         static SessionFactory()
         {
-            var connectionString = @"Data Source=.\sqlexpress;Initial Catalog=BlogDatabase;Integrated Security=True";
+            var connectionString = @"Data Source=.\sqlexpress2014;Initial Catalog=BlogDatabase;Integrated Security=True";
 
             var configuration = new Configuration();
             configuration.DataBaseIntegration(
@@ -29,7 +29,7 @@ namespace Dal
 
             mapper.BeforeMapBag += (modelInspector, member1, propertyCustomizer) =>
             {
-                propertyCustomizer.Inverse(true);
+                propertyCustomizer.Inverse(false);
                 propertyCustomizer.Cascade(Cascade.All | Cascade.DeleteOrphans);
             };
             mapper.BeforeMapManyToOne +=
