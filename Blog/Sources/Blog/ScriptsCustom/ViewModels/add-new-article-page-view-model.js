@@ -1,5 +1,6 @@
-﻿Blog.viewmodels.newArticle = function ($, ko) {
+﻿Blog.viewmodels.newArticlePage = function ($, ko) {
     function articleViewModel(model) {
+        //Console.log(model);
         var self = this;
         self.id = model.Id;
         self.title = model.Title;
@@ -22,6 +23,23 @@
         }
 
         self.comments = initComments();
+        self.save = function () {
+            var articleModel = ko.JSON(self);
+            articleModel.Title = self.title;
+            articleModel.Description = self.description;
+            articleModel.Content = self.content;
+            $.ajax(
+            {
+                type: "POST",
+                url: "Home/SaveArticle",
+                data: JSON.stringify(articleModel),
+                success: function () {
+                    window.location.href = "/";
+                },
+                contentType:
+            "application/json"
+            });
+        }
     }
     function bindArticle(model) {
         ko.applyBindings(new articleViewModel(model));

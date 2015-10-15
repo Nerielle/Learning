@@ -3,7 +3,7 @@
 
 @{
     ViewBag.Title = "AddNewArticle";
-    Layout = "~/Views/Shared/_Layout.cshtml";
+    //Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 <h2>AddNewArticle</h2>
@@ -43,7 +43,7 @@
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Create" class="btn btn-default" />
+                <input type="submit" value="Create" class="btn btn-default" click=""/>
             </div>
         </div>
     </div>
@@ -54,12 +54,12 @@
 </div>
 
 @section Scripts {
-    @Scripts.Render("~/bundles/jqueryval")
+    
 @JavaScript.AddCustom("ViewModels/add-new-article-page-view-model.js")
     <script type="text/javascript">
          @{
-             IHtmlString article = Html.Raw(JsonConvert.SerializeObject(Model));
+             IHtmlString articleObj = Html.Raw(JsonConvert.SerializeObject(Model));
          }
-        Blog.viewmodels.newArticle.bindArticle(@Html.Raw(article));
+        Blog.viewmodels.newArticlePage.bindArticle(@Html.Raw(articleObj));
     </script>
 }

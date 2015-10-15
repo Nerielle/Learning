@@ -22,5 +22,11 @@ namespace Dal
         {
             unitOfWork.Dispose();
         }
+
+        public void Save(DomainObject domainObject)
+        {
+            unitOfWork.Save(domainObject);
+            unitOfWork.Commit();
+        }
     }
 }

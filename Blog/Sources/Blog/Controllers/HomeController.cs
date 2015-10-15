@@ -24,6 +24,16 @@ namespace Blog.Controllers
 
         }
 
+        [HttpPost]
+        public void SaveArticle(Article article)
+        {
+            using (var repository1 = new Repository())
+            {
+                article.Date = DateTime.Now;
+                repository1.Save(article);
+            }
+        }
+
         public ActionResult About()
         {
             ViewBag.Message = "Your application description page.";
