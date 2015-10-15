@@ -6,8 +6,6 @@
         self.title = model.Title;
         self.description = model.Description;
         self.content = model.Content;
-        self.date = model.Date;
-        self.selectedItem = ko.observable({});
 
         function initComments() {
             if (!model.Comments) {
@@ -24,20 +22,16 @@
 
         self.comments = initComments();
         self.save = function () {
-            var articleModel = ko.JSON(self);
-            articleModel.Title = self.title;
-            articleModel.Description = self.description;
-            articleModel.Content = self.content;
+           
             $.ajax(
             {
                 type: "POST",
-                url: "Home/SaveArticle",
-                data: JSON.stringify(articleModel),
+                url: "SaveArticle",
+                data: ko.toJSON(self),
                 success: function () {
                     window.location.href = "/";
                 },
-                contentType:
-            "application/json"
+                contentType:"application/json"
             });
         }
     }
