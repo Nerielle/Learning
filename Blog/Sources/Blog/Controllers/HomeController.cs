@@ -16,13 +16,12 @@ namespace Blog.Controllers
             return View(articles);
         }
 
-        public ActionResult Add()
+        public ActionResult AddNewArticle()
         {
             var article = new Article() {Title = "New article", Id = Guid.Empty};
-            var articles = repository.GetArticles();
-            articles.Add(article);
-            ViewBag.SelectedOption = Guid.Empty;
-            return View("Index",articles);
+           
+            return View(article);
+
         }
 
         public ActionResult About()

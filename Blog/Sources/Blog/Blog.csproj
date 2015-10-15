@@ -204,6 +204,7 @@
     <Content Include="Content\bootstrap-theme.css.map" />
     <Content Include="App_Code\JavaScript.cshtml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
+    <Content Include="ScriptsCustom\ViewModels\add-new-article-page-view-model.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="ScriptsCustom\namespace.js" />
@@ -255,6 +256,7 @@
     <Content Include="Views\Manage\VerifyPhoneNumber.cshtml" />
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
+    <Content Include="Views\Home\AddNewArticle.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

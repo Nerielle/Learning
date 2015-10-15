@@ -7,7 +7,6 @@
         self.content = model.Content;
         self.date = model.Date;
         self.selectedItem = ko.observable({});
-        
 
         function initComments() {
             if (!model.Comments) {
@@ -40,11 +39,12 @@
         //    articles[0].isSelected = true;
         //} 
 
-
-        var viewModel = function() {
-            var self = this;
-            self.articles = ko.observableArray(articles);
-            self.selectedItem = ko.observable();
+        
+        var viewModel =  {
+            
+            articles: articles,
+            selectedItem : ko.observable()
+            //self.selectedItem = self.articles[0];
             //self.selectedArticle = ko.observable();
             //self.selectedArticle = $.grep(articles, function(item) {
             //    return item.isSelected;
