@@ -28,31 +28,17 @@
         var articles = model.map(function (item) {
             return new articleViewModel(item);
         });
-        //var hasNewItem = articles.some(function (item) {
-        //    if (item.id === "00000000-0000-0000-0000-000000000000") {
-        //        item.isSelected = true;
-        //        return true;
-        //    }
-        //    return false;
-        //});
-        //if (!hasNewItem) {
-        //    articles[0].isSelected = true;
-        //} 
 
-        
+    
         var viewModel =  {
             
             articles: ko.observableArray(articles),
-            selectedItem : ko.observable([])
-            //self.selectedItem = self.articles[0];
-            //self.selectedArticle = ko.observable();
-            //self.selectedArticle = $.grep(articles, function(item) {
-            //    return item.isSelected;
-            //})[0];
-        }
+            selectedItem : ko.observableArray([])
+    }
       
         ko.applyBindings(viewModel);
     }
+    
 
     return {
         bindArticleList: bindArticles
