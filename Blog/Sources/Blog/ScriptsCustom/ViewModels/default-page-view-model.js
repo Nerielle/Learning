@@ -1,4 +1,4 @@
-﻿Blog.viewmodels.defaultpage = function ($, ko) {
+﻿Blog.viewmodels.defaultpage = function($, ko) {
     function articleViewModel(model) {
         var self = this;
         self.id = model.id;
@@ -6,13 +6,12 @@
         self.description = model.description;
         self.content = model.content;
         self.date = model.Date;
-        //self.selectedItem = ko.observable({});
 
         function initComments() {
             if (!model.comments) {
                 return [];
             }
-            return model.comments.map(function (item) {
+            return model.comments.map(function(item) {
                 return {
                     date: item.Date,
                     content: item.Content,
@@ -25,20 +24,21 @@
     }
 
     function bindArticles(model) {
-        var articles = model.map(function (item) {
+        var articles = model.map(function(item) {
             return new articleViewModel(item);
         });
 
-    
-        var viewModel =  {
-            
-            articles: ko.observableArray(articles),
-            selectedItem : ko.observableArray([])
-    }
-      
+
+        function pageViewModel(articleViewModelsList) {
+            var self = this;
+            self.articles = ko.observableArray(articleViewModelsList);
+            self.selectedItems = ko.observableArray([self.articles()[0]]);
+        }
+
+        var viewModel = new pageViewModel(articles);
         ko.applyBindings(viewModel);
     }
-    
+
 
     return {
         bindArticleList: bindArticles
