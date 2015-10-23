@@ -16,21 +16,23 @@
     "></select>
         </div>
         <br />
-        <div class="col-md-8" data-bind="visible: selectedItems().length!=0">
+        <div class="col-md-8 blog-post" data-bind="visible: selectedItems().length!=0">
             <div class="row">
-                <div class="col-sm-10 media-heading">
-                    <h2 data-bind="text: selectedItems()[0].title "></h2></div>
+                <div class="col-sm-10 panel-heading">
+                    <h2 data-bind="text: selectedItems()[0].title "></h2>
+                </div>
                 <div class="col-sm-10 text-info" data-bind="text: selectedItems()[0].description"></div>
                 <div class="col-sm-10" data-bind="text: selectedItems()[0].content"></div>
-                <hr/>
                 <div class="col-sm-10">
+                    <hr />
                     <button class="btn-link btn-default">Добавить комментарий</button>
                     <button class="btn-link btn-default">Удалить комментарий</button>
                 </div>
-                <div class="col-sm-10">
-                    <div class="" data-bind="foreach: selectedItems()[0].comments">
-                        <div data-bind="text: date"></div>
-                        <div data-bind="text: content"></div>
+                <div class="col-sm-10 ">
+                    <div data-bind="foreach: selectedItems()[0].comments">
+                        <br/>
+                        <p data-bind="text: content"></p>
+                        <span class="small text-muted" data-bind="text: date"></span>
                     </div>
                 </div>
             </div>
