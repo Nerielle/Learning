@@ -1,4 +1,12 @@
-﻿Blog.viewmodels.defaultpage = function($, ko) {
+﻿Blog.viewmodels.defaultpage = function ($, ko) {
+    function comment(item) {
+        var self = this;
+        self.date = item.Date;
+            self.content = item.Content;
+        self.deleteComment = function() {
+            alert("Deleting comment");
+        };
+    }
     function articleViewModel(model) {
         var self = this;
         self.id = model.id;
@@ -12,11 +20,7 @@
                 return [];
             }
             return model.comments.map(function(item) {
-                return {
-                    date: item.Date,
-                    content: item.Content,
-                    article: self
-                };
+                return new comment(item);
             });
         }
 
