@@ -23,16 +23,15 @@
                 </div>
                 <div class="col-sm-10 text-info" data-bind="text: selectedItems()[0].description"></div>
                 <div class="col-sm-10" data-bind="text: selectedItems()[0].content"></div>
-                <div class="col-sm-10">
-                    <hr />
-                    <button class="btn-link btn-default">Добавить комментарий</button>
-                    <button class="btn-link btn-default">Удалить комментарий</button>
-                </div>
+                
                 <div class="col-sm-10 ">
                     <div data-bind="foreach: selectedItems()[0].comments">
-                        <br/>
+                        <hr/>
+                      
                         <p data-bind="text: content"></p>
                         <span class="small text-muted" data-bind="text: date"></span>
+                        <button class="btn-link btn-default text-muted small">Добавить комментарий</button>
+                        <button class="btn-link btn-default text-muted small">Удалить комментарий</button>
                     </div>
                 </div>
             </div>
