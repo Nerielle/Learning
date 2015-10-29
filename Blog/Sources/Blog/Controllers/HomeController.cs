@@ -34,6 +34,13 @@ namespace Blog.Controllers
             }
         }
 
+        [HttpPost]
+        public void SaveComment(Comment comment)
+        {
+            
+        }
+
+
         public ActionResult About()
         {
             ViewBag.Message = "Your application description page.";

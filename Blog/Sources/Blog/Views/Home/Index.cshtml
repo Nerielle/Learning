@@ -23,16 +23,21 @@
                 </div>
                 <div class="col-sm-10 text-info" data-bind="text: selectedItems()[0].description"></div>
                 <div class="col-sm-10" data-bind="text: selectedItems()[0].content"></div>
-                
+
                 <div class="col-sm-10 ">
                     <div data-bind="foreach: selectedItems()[0].comments">
-                        <hr/>
-                      
+                        <hr />
+
                         <p data-bind="text: content"></p>
                         <span class="small text-muted" data-bind="text: date"></span>
-                        <button class="btn-link btn-default text-muted small">Добавить комментарий</button>
                         <button class="btn-link btn-default text-muted small" data-bind="click: deleteComment">Удалить комментарий</button>
                     </div>
+                    <hr/>
+                    <div>
+                        <p>Оставьте свой комментарий:</p>
+                        <textarea rows="3" class="col-sm-10" data-bind="text: newComment"></textarea>
+                    </div>
+                    <button class="btn-link btn-default text-muted small" data-bind="click: saveNewComment">Добавить комментарий</button>
                 </div>
             </div>
         </div>
