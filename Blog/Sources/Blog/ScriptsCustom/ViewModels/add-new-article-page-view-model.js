@@ -1,19 +1,19 @@
 ﻿Blog.viewmodels.newArticlePage = function ($, ko) {
     function articleViewModel(model) {
         var self = this;
-        self.id = model.Id;
-        self.title = model.Title;
-        self.description = model.Description;
-        self.content = model.Content;
+        self.id = model.id;
+        self.title = model.title;
+        self.description = model.description;
+        self.content = model.content;
 
         function initComments() {
-            if (!model.Comments) {
+            if (!model.comments) {
                 return [];
             }
-            return model.Comments.map(function (item) {
+            return model.comments.map(function (item) {
                 return {
-                    date: item.Date,
-                    content: item.Content,
+                    date: item.date,
+                    content: item.content,
                     article: self
                 };
             });

@@ -17,6 +17,10 @@ namespace Dal
         {
             return unitOfWork.Query<Article>().ToList();
         }
+        public T GetById<T>(Guid id) where T: DomainObject
+        {
+            return unitOfWork.GetById<T>(id);
+        }
 
         public void Dispose()
         {

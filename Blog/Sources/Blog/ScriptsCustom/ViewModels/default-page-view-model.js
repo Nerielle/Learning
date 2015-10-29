@@ -1,9 +1,8 @@
 ﻿Blog.viewmodels.defaultpage = function ($, ko) {
     function comment(item) {
         var self = this;
-        self.date = item.Date;
-        self.content = item.Content;
-        self.articleId = item.articleId;
+        self.date = item.date;
+        self.content = item.content;
         self.deleteComment = function () {
             alert("Deleting comment");
         };
@@ -15,7 +14,7 @@
         self.title = model.title;
         self.description = model.description;
         self.content = model.content;
-        self.date = model.Date;
+        self.date = model.date;
 
         function initComments() {
             if (!model.comments) {
@@ -42,17 +41,13 @@
             self.selectedItems = ko.observableArray([self.articles()[0]]);
             self.newComment = ko.observable();
             self.saveNewComment = function () {
-                var item = new Comment();
-                item.content = self.newComment;
-                item.articleId= self.selectedItems()[0].id
-                var newComment = new comment(item);
-                //article.comments.add(newComment);
+                var articleId = self.selectedItems()[0].id;
                 $.ajax({
                     type: "POST",
-                    url: "SaveComment",
-                    data: ko.toJSON(newComment),
+                    url: "Home/SaveComment",
+                    data: ko.toJSON({ content: self.newComment, articleId: articleId }),
                     success: function () {
-                        location.href = "Index";
+                        location.href = "Home/Index";
                     },
                     contentType: "application/json",
                     error: function () {

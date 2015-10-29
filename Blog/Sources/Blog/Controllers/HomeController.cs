@@ -37,7 +37,12 @@ namespace Blog.Controllers
         [HttpPost]
         public void SaveComment(Comment comment)
         {
-            
+            using (var repository1 = new Repository())
+            {
+                var article = repository1.GetById<Article>(comment.ArticleId);
+                article.Comments.Add(comment);
+                repository1.Save(article);
+            }
         }
 
 

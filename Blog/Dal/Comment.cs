@@ -4,11 +4,12 @@ using Newtonsoft.Json;
 
 namespace Dal
 {
-    public class Comment:DomainObject
+    public class Comment : DomainObject
     {
-        [JsonProperty("content")]
+        [JsonProperty(PropertyName = "content")]
         public virtual string Content { get; set; }
-        [JsonProperty("articleid")]
-        public virtual int ArticleId { get; set; }
+
+        [JsonProperty(PropertyName = "articleId")]
+        public virtual Guid ArticleId { get; set; }
     }
 }

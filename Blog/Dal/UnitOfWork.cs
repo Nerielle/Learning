@@ -37,7 +37,7 @@ namespace Dal
             session.Dispose();
         }
 
-        public DomainObject GetById<T>(Guid id) where T: DomainObject
+        public T GetById<T>(Guid id) where T: DomainObject
         {
             return session.Get<T>(id);
         }
