@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Web.Mvc;
 using Dal;
+using Dal.Mapping;
 
 namespace Blog.Controllers
 {
@@ -25,6 +26,15 @@ namespace Blog.Controllers
         }
 
         [HttpPost]
+        public void DeleteComment(Comment comment)
+        {
+            using (var repository1 = new Repository())
+            {
+                repository1.Delete(comment);
+            }
+        }
+
+        [HttpPost]
         public void SaveArticle(Article article)
         {
             using (var repository1 = new Repository())
@@ -40,6 +50,7 @@ namespace Blog.Controllers
             using (var repository1 = new Repository())
             {
                 var article = repository1.GetById<Article>(comment.ArticleId);
+                comment.Date = DateTime.Now;
                 article.Comments.Add(comment);
                 repository1.Save(article);
             }

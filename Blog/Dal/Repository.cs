@@ -32,5 +32,10 @@ namespace Dal
             unitOfWork.Save(domainObject);
             unitOfWork.Commit();
         }
+
+        public void Delete(DomainObject domainObject)
+        {
+            unitOfWork.Delete(domainObject);
+        }
     }
 }

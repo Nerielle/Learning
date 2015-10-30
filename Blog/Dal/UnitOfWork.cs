@@ -46,5 +46,10 @@ namespace Dal
         {
             return session.Query<T>();
         }
+
+        public void Delete(DomainObject domainObject)
+        {
+            session.Delete(domainObject);
+        }
     }
 }

@@ -1,10 +1,22 @@
 ﻿Blog.viewmodels.defaultpage = function ($, ko) {
     function comment(item) {
         var self = this;
+        self.id = item.id;
         self.date = item.date;
         self.content = item.content;
         self.deleteComment = function () {
-            alert("Deleting comment");
+            $.ajax({
+                type: "POST",
+                url: "Home/DeleteComment",
+                data: ko.toJSON(self),
+                success: function () {
+                    location.href = "Home/Index";
+                },
+                contentType: "application/json",
+                error: function () {
+                    alert("Can't delete comment");
+                }
+            });
         };
 
     }
@@ -51,7 +63,7 @@
                     },
                     contentType: "application/json",
                     error: function () {
-                        alert("Can't save");
+                        alert("Can't save comment");
                     }
                 });
             }
