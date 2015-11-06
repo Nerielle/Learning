@@ -12,14 +12,13 @@ namespace Blog.Controllers
 
         public ActionResult Index()
         {
-            var articles = repository.GetArticles();
-            ViewBag.SelectedOption = articles.Any() ? articles.First().Id : Guid.Empty;
+            var articles = repository.GetArticles().OrderByDescending(x=>x.Date).ToList();
             return View(articles);
         }
 
         public ActionResult AddNewArticle()
         {
-            var article = new Article() {Title = "New article", Id = Guid.Empty};
+            var article = new Article() { Id = Guid.Empty};
            
             return View(article);
 

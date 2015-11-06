@@ -21,7 +21,7 @@
             <div class="form-group">
                 <label for="inputTitle" class="col-m-2 control-label">Title</label>
                 <div class="col-m-10">
-                    <input class="form-control" id="inputTitle" data-bind="value: title" >
+                    <input class="form-control" id="inputTitle" data-bind="value: title" placeholder="New article">
                     @Html.ValidationMessageFor(model => model.Title, "", new { @class = "text-danger" })
                 </div>
             </div>
