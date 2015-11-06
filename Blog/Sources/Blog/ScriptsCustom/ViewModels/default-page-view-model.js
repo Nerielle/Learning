@@ -67,13 +67,14 @@
                     }
                 });
             }
+            self.deleteArticle = function () {
+                alert("do you really want it?");
+            }
         }
 
         var viewModel = new pageViewModel(articles);
         ko.applyBindings(viewModel);
     }
-
-
     return {
         bindArticleList: bindArticles
     };
