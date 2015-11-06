@@ -42,5 +42,13 @@
     @JavaScript.AddCustom("namespace.js")
     @Scripts.Render("~/bundles/bootstrap")
     @RenderSection("scripts", required: false)
+    <script type="text/javascript">
+        Blog.deleteCommentPath = '@Url.Action("DeleteComment", "Home")';
+        Blog.saveNewCommentPath = '@Url.Action("SaveComment", "Home")';
+        Blog.indexPath = '@Url.Action("Index", "Home")';
+        Blog.saveArticlePath = '@Url.Action("SaveArticle", "Home")';
+    </script>
+
+
 </body>
 </html>

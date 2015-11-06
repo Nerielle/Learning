@@ -7,10 +7,10 @@
         self.deleteComment = function () {
             $.ajax({
                 type: "POST",
-                url: "Home/DeleteComment",
+                url: Blog.deleteCommentPath,
                 data: ko.toJSON(self),
                 success: function () {
-                    location.href = "Home/Index";
+                    location.href = Blog.indexPath;
                 },
                 contentType: "application/json",
                 error: function () {
@@ -56,10 +56,10 @@
                 var articleId = self.selectedItems()[0].id;
                 $.ajax({
                     type: "POST",
-                    url: "Home/SaveComment",
+                    url: Blog.saveNewCommentPath,
                     data: ko.toJSON({ content: self.newComment, articleId: articleId }),
                     success: function () {
-                        location.href = "Home/Index";
+                        location.href = Blog.indexPath;
                     },
                     contentType: "application/json",
                     error: function () {

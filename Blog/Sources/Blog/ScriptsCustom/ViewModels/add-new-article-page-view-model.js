@@ -25,10 +25,10 @@
             $.ajax(
             {
                 type: "POST",
-                url: "SaveArticle",
+                url: Blog.saveArticlePath,
                 data: ko.toJSON(self),
                 success: function () {
-                    location.href = "Index";
+                    location.href = Blog.indexPath;
                 
                 },
                 contentType: "application/json",
