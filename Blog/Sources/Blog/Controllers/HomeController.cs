@@ -25,6 +25,15 @@ namespace Blog.Controllers
         }
 
         [HttpPost]
+        public void DeleteArticle(Guid article)
+        {
+            using (var repository1 = new Repository())
+            {
+                //repository1.Delete(article);
+            }
+        }
+
+        [HttpPost]
         public void DeleteComment(Comment comment)
         {
             using (var repository1 = new Repository())

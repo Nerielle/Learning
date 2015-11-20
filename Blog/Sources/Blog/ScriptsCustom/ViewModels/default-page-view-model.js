@@ -68,7 +68,18 @@
                 });
             }
             self.deleteArticle = function () {
-                alert("do you really want it?");
+                var article = self.selectedItems()[0];
+                $.ajax({
+                    type: "POST",
+                    url: Blog.deleteArticlePath,
+                    data: ko.toJSON(article.id),
+                    success: function() {
+                        alert("succsess")
+                    },
+                    error: function() {
+                        alert("error")
+                    }
+                });
             }
         }
 

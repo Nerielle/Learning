@@ -33,10 +33,12 @@
                
                 <div class="col-sm-10 small">
                     <div data-bind="foreach: selectedItems()[0].comments">
-                        <hr />
-                        <p data-bind="text: content"></p>
-                        <span class="text-muted" data-bind="text: date"></span>
-                        <button class="btn-link text-muted" data-bind="click: deleteComment">Удалить комментарий</button>
+                        <div id="text: id">
+                            <hr />
+                            <p data-bind="text: content"></p>
+                            <span class="text-muted" data-bind="text: date"></span>
+                            <button class="btn-link text-muted" data-bind="click: deleteComment">Удалить комментарий</button>
+                        </div>
                     </div>
                     <hr />
                     <div>
