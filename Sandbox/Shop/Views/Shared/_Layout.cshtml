@@ -33,12 +33,12 @@
 </div>
 <div class="container body-content">
     <div class="well well-lg col-lg-3">
-        @Html.Action("Menu", "Categories",
+        @*@Html.Action("Menu", "Categories",
             new
             {
                 selectedCategoryId = ViewBag.SelectedCategoryId != null ?
                     ViewBag.SelectedCategoryId : 0
-            })
+            })*@
     </div>
     <div class="col-lg-9">
         @RenderBody()
@@ -49,8 +49,8 @@
     </footer>
 </div>
 
-@Scripts.Render("~/bundles/jquery")
-@Scripts.Render("~/bundles/bootstrap")
+@Scripts.Render("~/bundles/shop")
+@*@Scripts.Render("~/bundles/bootstrap")*@
 @RenderSection("scripts", required: false)
 </body>
 </html>
