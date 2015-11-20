@@ -214,6 +214,7 @@
     <Content Include="Views\Categories\Menu.cshtml" />
     <Content Include="Views\Books\Featured.cshtml" />
     <Content Include="Views\Books\_List.cshtml" />
+    <Content Include="Views\Books\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

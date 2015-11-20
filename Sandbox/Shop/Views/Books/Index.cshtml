@@ -1,0 +1,17 @@
+﻿@model System.Collections.Generic.List<Shop.ViewModels.BookViewModel>
+@{
+    ViewBag.Title = "Books";
+}
+
+<h2>Books</h2>
+
+@if (Model.Count > 0)
+{
+    @Html.Partial("_List", Model)
+}
+else
+{
+    <div class="alert alert-info">
+        There are currently no books to display.
+    </div>
+}

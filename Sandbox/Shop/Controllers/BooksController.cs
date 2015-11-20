@@ -19,6 +19,17 @@ namespace Shop.Controllers
             Mapper.CreateMap<Category, CategoryViewModel>();
         }
 
+        // GET: Books
+        public ActionResult Index(int categoryId)
+        {
+            var books = _bookService.GetByCategoryId(categoryId);
+            ViewBag.SelectedCategoryId = categoryId;
+
+            return View(
+              AutoMapper.Mapper.Map<List<Book>, List<BookViewModel>>(books)
+            );
+        }
+
         [ChildActionOnly]
         public PartialViewResult Featured()
         {

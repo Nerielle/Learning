@@ -10,6 +10,15 @@ namespace Shop.Services
     {
         private readonly ShopDbContext _db = new ShopDbContext();
 
+        public List<Book> GetByCategoryId(int categoryId)
+        {
+            return _db.Books.
+                Include("Author").
+                Where(b => b.CategoryId == categoryId).
+                OrderByDescending(b => b.Featured).
+                ToList();
+        }
+
         public List<Book> GetFeatured()
         {
             return _db.Books.
