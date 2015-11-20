@@ -195,6 +195,7 @@
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
     <Content Include="Scripts\viewModels\book-detail-viewmodel.js" />
+    <Content Include="Scripts\viewModels\cart-detail-viewmodel.js" />
     <Content Include="Scripts\viewModels\cart-item-viewmodel.js" />
     <Content Include="Scripts\viewModels\cart-summary-viewmodel.js" />
     <Content Include="Scripts\_references.js" />

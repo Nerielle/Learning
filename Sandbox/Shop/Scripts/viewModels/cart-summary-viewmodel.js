@@ -30,7 +30,14 @@
             self.cart.cartItems.push(cartItem);
         }
     };
-
+    self.deleteCartItem = function (cartItem) {
+        for (var i = 0; i < self.cart.cartItems().length; i++) {
+            if (self.cart.cartItems()[i].id == cartItem.id) {
+                self.cart.cartItems.remove(self.cart.cartItems()[i]);
+                break;
+            }
+        }
+    };
     self.showCart = function () {
         $('#cart').popover('toggle');
     };

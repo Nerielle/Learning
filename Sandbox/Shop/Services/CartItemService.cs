@@ -39,5 +39,17 @@ namespace Shop.Services
 
             return existingCartItem;
         }
+
+        public void DeleteCartItem(CartItem cartItem)
+        {
+            _db.Entry(cartItem).State = EntityState.Deleted;
+            _db.SaveChanges();
+        }
+
+        public void UpdateCartItem(CartItem cartItem)
+        {
+            _db.Entry(cartItem).State = EntityState.Modified;
+            _db.SaveChanges();
+        }
     }
 }
