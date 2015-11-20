@@ -20,6 +20,16 @@ namespace Shop.Controllers
             Mapper.CreateMap<Category, CategoryViewModel>();
         }
 
+        // GET: Carts
+        public ActionResult Index()
+        {
+            var cart = _cartService.GetBySessionId(HttpContext.Session.SessionID);
+
+            return View(
+              AutoMapper.Mapper.Map<Cart, CartViewModel>(cart)
+            );
+        }
+
         [ChildActionOnly]
         public PartialViewResult Summary()
         {
