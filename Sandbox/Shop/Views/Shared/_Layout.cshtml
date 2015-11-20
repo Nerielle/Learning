@@ -25,11 +25,24 @@
                 <li>@Html.ActionLink("About", "About", "Home")</li>
                 <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
             </ul>
+            <div class="navbar-right" id="cart-details">
+                @Html.Action("Summary", "Carts")
+            </div>
         </div>
     </div>
 </div>
 <div class="container body-content">
-    @RenderBody()
+    <div class="well well-lg col-lg-3">
+        @Html.Action("Menu", "Categories",
+            new
+            {
+                selectedCategoryId = ViewBag.SelectedCategoryId != null ?
+                    ViewBag.SelectedCategoryId : 0
+            })
+    </div>
+    <div class="col-lg-9">
+        @RenderBody()
+    </div>
     <hr/>
     <footer>
         <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
