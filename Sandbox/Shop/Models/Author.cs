@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Shop.Models
@@ -13,10 +14,7 @@ namespace Shop.Models
         [NotMapped]
         public string FullName
         {
-            get
-            {
-                return FirstName + ' ' + LastName;
-            }
+            get { return FirstName + ' ' + LastName; }
         }
 
         public virtual ICollection<Book> Books { get; set; }

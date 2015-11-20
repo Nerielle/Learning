@@ -1,7 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Data.Entity;
-using System.Linq;
 using System.Web;
 using System.Web.Http;
 using System.Web.Mvc;
@@ -11,7 +9,7 @@ using Shop.DAL;
 
 namespace Shop
 {
-    public class MvcApplication : System.Web.HttpApplication
+    public class MvcApplication : HttpApplication
     {
         protected void Application_Start()
         {
@@ -23,7 +21,6 @@ namespace Shop
             var dbContext = new ShopDbContext();
             Database.SetInitializer(new DataInitialisation());
             dbContext.Database.Initialize(true);
-
         }
 
         protected void Session_Start(object sender, EventArgs e)
