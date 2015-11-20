@@ -192,7 +192,9 @@
     <Content Include="Scripts\modernizr-2.6.2.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
-    <Content Include="Scripts\viewModels\cart-summary-view-model.js" />
+    <Content Include="Scripts\viewModels\book-detail-viewmodel.js" />
+    <Content Include="Scripts\viewModels\cart-item-viewmodel.js" />
+    <Content Include="Scripts\viewModels\cart-summary-viewmodel.js" />
     <Content Include="Scripts\_references.js" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
@@ -215,6 +217,8 @@
     <Content Include="Views\Books\Featured.cshtml" />
     <Content Include="Views\Books\_List.cshtml" />
     <Content Include="Views\Books\Index.cshtml" />
+    <Content Include="Views\Books\Details.cshtml" />
+    <Content Include="Views\Shared\_CartItemForm.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

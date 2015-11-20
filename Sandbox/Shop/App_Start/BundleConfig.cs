@@ -13,7 +13,7 @@ namespace Shop
             "~/Scripts/bootstrap.js",
             "~/Scripts/respond.js", "~/Scripts/knockout-{version}.js",
             "~/Scripts/custom.js",
-            "~/Scripts/viewModels/cart-summary-view-model.js"));
+            "~/Scripts/viewModels/cart-summary-viewmodel.js"));
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
                   "~/Content/bootstrap.css",

@@ -19,15 +19,20 @@ namespace Shop.Controllers
             Mapper.CreateMap<Category, CategoryViewModel>();
         }
 
+        public ActionResult Details(int id)
+        {
+            var book = _bookService.GetById(id);
+
+            return View(Mapper.Map<Book, BookViewModel>(book));
+        }
+
         // GET: Books
         public ActionResult Index(int categoryId)
         {
             var books = _bookService.GetByCategoryId(categoryId);
             ViewBag.SelectedCategoryId = categoryId;
 
-            return View(
-              AutoMapper.Mapper.Map<List<Book>, List<BookViewModel>>(books)
-            );
+            return View(Mapper.Map<List<Book>, List<BookViewModel>>(books));
         }
 
         [ChildActionOnly]
@@ -35,9 +40,7 @@ namespace Shop.Controllers
         {
             var books = _bookService.GetFeatured();
 
-            return PartialView(
-                Mapper.Map<List<Book>, List<BookViewModel>>(books)
-                );
+            return PartialView(Mapper.Map<List<Book>, List<BookViewModel>>(books));
         }
 
         protected override void Dispose(bool disposing)
