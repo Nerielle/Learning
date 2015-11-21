@@ -1,5 +1,4 @@
-﻿using System;
-using System.Web.Mvc;
+﻿using System.Web.Mvc;
 using AutoMapper;
 using Shop.Models;
 using Shop.Services;
@@ -25,9 +24,7 @@ namespace Shop.Controllers
         {
             var cart = _cartService.GetBySessionId(HttpContext.Session.SessionID);
 
-            return View(
-              AutoMapper.Mapper.Map<Cart, CartViewModel>(cart)
-            );
+            return View(Mapper.Map<Cart, CartViewModel>(cart));
         }
 
         [ChildActionOnly]
@@ -35,9 +32,7 @@ namespace Shop.Controllers
         {
             var cart = _cartService.GetBySessionId(HttpContext.Session.SessionID);
 
-            return PartialView(
-                Mapper.Map<Cart, CartViewModel>(cart)
-                );
+            return PartialView(Mapper.Map<Cart, CartViewModel>(cart));
         }
 
         protected override void Dispose(bool disposing)
