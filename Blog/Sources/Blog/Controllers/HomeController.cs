@@ -25,11 +25,11 @@ namespace Blog.Controllers
         }
 
         [HttpPost]
-        public void DeleteArticle(Guid article)
+        public void DeleteArticle(Article article)
         {
             using (var repository1 = new Repository())
             {
-                //repository1.Delete(article);
+                repository1.Delete(article);
             }
         }
 

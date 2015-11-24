@@ -6,9 +6,9 @@
 }
 <div class="container-fluid">
     <div class="row">
-        <div class="col-md-4">
+        <div class="list-group col-md-4">
             <br />
-            <select multiple class="form-control " aria-selected="True" size="30"
+            <select multiple class="list-group-item " aria-selected="True" size="30"
                     data-bind="options: articles,
                     optionsText: 'title',
                     selectedOptions:selectedItems"></select>
@@ -33,7 +33,7 @@
                
                 <div class="col-sm-10 small">
                     <div data-bind="foreach: selectedItems()[0].comments">
-                        <div id="text: id">
+                        <div data-bind="attr: {id: id}">
                             <hr />
                             <p data-bind="text: content"></p>
                             <span class="text-muted" data-bind="text: date"></span>

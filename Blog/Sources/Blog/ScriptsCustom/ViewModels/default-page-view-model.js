@@ -10,11 +10,13 @@
                 url: Blog.deleteCommentPath,
                 data: ko.toJSON(self),
                 success: function () {
-                    location.href = Blog.indexPath;
+                    $('.blog-post').prepend('<div class="alert alert-success"><strong>Success!</strong> The comment has been deleted.</div>');
+
+                    $('#' + self.id).remove();
                 },
                 contentType: "application/json",
                 error: function () {
-                    alert("Can't delete comment");
+                    $('.blog-post').prepend('<div class="alert alert-danger"><strong>Error!</strong> There was an error deleting the article.</div>');
                 }
             });
         };
@@ -69,15 +71,18 @@
             }
             self.deleteArticle = function () {
                 var article = self.selectedItems()[0];
+                var json = ko.toJSON(article);
+               
                 $.ajax({
                     type: "POST",
                     url: Blog.deleteArticlePath,
-                    data: ko.toJSON(article.id),
+                    data: json,
+                    contentType: "application/json",
                     success: function() {
-                        alert("succsess")
+                        $('.blog-post').prepend('<div class="alert alert-success"><strong>Success!</strong> The article has been deleted.</div>');
                     },
                     error: function() {
-                        alert("error")
+                        $('.blog-post').prepend('<div class="alert alert-danger"><strong>Error!</strong> There was an error deleting the article.</div>');
                     }
                 });
             }
