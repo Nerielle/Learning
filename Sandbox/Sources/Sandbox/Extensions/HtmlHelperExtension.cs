@@ -1,14 +1,12 @@
-﻿using System;
-using Newtonsoft.Json;
-using System.Web;
+﻿using System.Web;
 using System.Web.Mvc;
-using Sandbox.Models;
+using Newtonsoft.Json;
 using Sandbox.ViewModels;
 
 public static class HtmlHelperExtensions
 {
     public static HtmlString HtmlConvertToJson(this HtmlHelper htmlHelper,
-  object model)
+        object model)
     {
         var settings = new JsonSerializerSettings
         {
@@ -19,78 +17,81 @@ public static class HtmlHelperExtensions
         return new HtmlString(JsonConvert.SerializeObject(model, settings));
     }
 
-    public static MvcHtmlString BuildKnockoutSortableLink(this HtmlHelper helper, string fieldName, string actionName, string sortField)
+    public static MvcHtmlString BuildKnockoutSortableLink(this HtmlHelper helper, string fieldName, string actionName,
+        string sortField)
     {
         var urlHelper = new UrlHelper(helper.ViewContext.RequestContext);
-        return new MvcHtmlString(String.Format(
-            "<a href=\"{0}\" data-bind=\"click: pagingService.sortEntitiesBy\""+
+        return new MvcHtmlString(string.Format(
+            "<a href=\"{0}\" data-bind=\"click: pagingService.sortEntitiesBy\"" +
             " data-sort-field=\"{1}\">{2} " +
             "<span data-bind=\"css: pagingService.buildSortIcon('{1}')\"></span></a>",
             urlHelper.Action(actionName),
             sortField,
             fieldName));
     }
+
     public static MvcHtmlString BuildKnockoutNextPreviousLinks(
-     this HtmlHelper htmlHelper, string actionName)
+        this HtmlHelper htmlHelper, string actionName)
     {
         var urlHelper = new UrlHelper(htmlHelper.ViewContext.RequestContext);
 
         return new MvcHtmlString(string.Format(
-    "<nav>" +
-    "    <ul class=\"pager\">" +
-    "      <li data-bind=\"css: pagingService.buildPreviousClass()\">" +
-    "       <a href=\"{0}\" data-bind=\"click: pagingService.previousPage\">Previous </ a ></ li > " +
-    "      <li data-bind=\"css: pagingService.buildNextClass()\">" +
-    "       <a href=\"{0}\" data-bind=\"click: pagingService.nextPage\">Next </ a ></ li ></ li > " +
-    "    </ul>" +
-    "</nav>",
-        @urlHelper.Action(actionName)
-        ));
+            "<nav>" +
+            "    <ul class=\"pager\">" +
+            "      <li data-bind=\"css: pagingService.buildPreviousClass()\">" +
+            "       <a href=\"{0}\" data-bind=\"click: pagingService.previousPage\">Previous </ a ></ li > " +
+            "      <li data-bind=\"css: pagingService.buildNextClass()\">" +
+            "       <a href=\"{0}\" data-bind=\"click: pagingService.nextPage\">Next </ a ></ li ></ li > " +
+            "    </ul>" +
+            "</nav>",
+            @urlHelper.Action(actionName)
+            ));
     }
 
     public static MvcHtmlString BuildNextPreviousLinks(
-       this HtmlHelper htmlHelper, QueryOptions queryOptions, string actionName)
+        this HtmlHelper htmlHelper, QueryOptions queryOptions, string actionName)
     {
         var urlHelper = new UrlHelper(htmlHelper.ViewContext.RequestContext);
 
         return new MvcHtmlString(string.Format(
-    "<nav>" +
-    "    <ul class=\"pager\">" +
-    "      <li class=\"previous {0}\">{1}</li>" +
-    "      <li class=\"next {2}\">{3}</li>" +
-    "    </ul>" +
-    "</nav>",
-        IsPreviousDisabled(queryOptions),
-        BuildPreviousLink(urlHelper, queryOptions, actionName),
-        IsNextDisabled(queryOptions),
-        BuildNextLink(urlHelper, queryOptions, actionName)
-        ));
+            "<nav>" +
+            "    <ul class=\"pager\">" +
+            "      <li class=\"previous {0}\">{1}</li>" +
+            "      <li class=\"next {2}\">{3}</li>" +
+            "    </ul>" +
+            "</nav>",
+            IsPreviousDisabled(queryOptions),
+            BuildPreviousLink(urlHelper, queryOptions, actionName),
+            IsNextDisabled(queryOptions),
+            BuildNextLink(urlHelper, queryOptions, actionName)
+            ));
     }
 
     public static MvcHtmlString BuildSortableLink(this HtmlHelper htmlHelper,
-    string fieldName, string actionName, string sortField, QueryOptions queryOptions)
+        string fieldName, string actionName, string sortField, QueryOptions queryOptions)
     {
         var urlHelper = new UrlHelper(htmlHelper.ViewContext.RequestContext);
 
         var isCurrentSortField = queryOptions.SortField == sortField;
 
         return new MvcHtmlString(string.Format("<a href=\"{0}\">{1} {2}</a>",
-          urlHelper.Action(actionName,
-          new
-          {
-              SortField = sortField,
-              SortOrder = (isCurrentSortField
-                  && queryOptions.SortOrder == SortOrder.Asc)
-                ? SortOrder.Desc : SortOrder.Asc
-          }),
-          fieldName,
-          BuildSortIcon(isCurrentSortField, queryOptions)));
+            urlHelper.Action(actionName,
+                new
+                {
+                    SortField = sortField,
+                    SortOrder = (isCurrentSortField
+                                 && queryOptions.SortOrder == SortOrder.Asc)
+                        ? SortOrder.Desc
+                        : SortOrder.Asc
+                }),
+            fieldName,
+            BuildSortIcon(isCurrentSortField, queryOptions)));
     }
 
     private static string BuildSortIcon(bool isCurrentSortField
         , QueryOptions queryOptions)
     {
-        string sortIcon = "sort";
+        var sortIcon = "sort";
 
         if (isCurrentSortField)
         {
@@ -100,47 +101,48 @@ public static class HtmlHelperExtensions
         }
 
         return string.Format("<span class=\"{0} {1}{2}\"></span>",
-          "glyphicon", "glyphicon-", sortIcon);
+            "glyphicon", "glyphicon-", sortIcon);
     }
 
     private static string IsPreviousDisabled(QueryOptions queryOptions)
     {
         return (queryOptions.CurrentPage == 1)
-       ? "disabled" : string.Empty;
+            ? "disabled"
+            : string.Empty;
     }
 
     private static string IsNextDisabled(QueryOptions queryOptions)
     {
         return (queryOptions.CurrentPage == queryOptions.TotalPages)
-          ? "disabled" : string.Empty;
+            ? "disabled"
+            : string.Empty;
     }
 
     private static string BuildPreviousLink(
-         UrlHelper urlHelper, QueryOptions queryOptions, string actionName)
+        UrlHelper urlHelper, QueryOptions queryOptions, string actionName)
     {
         return string.Format(
-          "<a href=\"{0}\"><span aria-hidden=\"true\">&larr;</span> Previous</a>",
-          urlHelper.Action(actionName, new
-          {
-              SortOrder = queryOptions.SortOrder,
-              SortField = queryOptions.SortField,
-              CurrentPage = queryOptions.CurrentPage - 1,
-              PageSize = queryOptions.PageSize
-          }));
+            "<a href=\"{0}\"><span aria-hidden=\"true\">&larr;</span> Previous</a>",
+            urlHelper.Action(actionName, new
+            {
+                queryOptions.SortOrder,
+                queryOptions.SortField,
+                CurrentPage = queryOptions.CurrentPage - 1,
+                queryOptions.PageSize
+            }));
     }
 
     private static string BuildNextLink(
-         UrlHelper urlHelper, QueryOptions queryOptions, string actionName)
+        UrlHelper urlHelper, QueryOptions queryOptions, string actionName)
     {
         return string.Format(
-          "<a href=\"{0}\">Next <span aria-hidden=\"true\">&rarr;</span></a>",
-          urlHelper.Action(actionName, new
-          {
-              SortOrder = queryOptions.SortOrder,
-              SortField = queryOptions.SortField,
-              CurrentPage = queryOptions.CurrentPage + 1,
-              PageSize = queryOptions.PageSize
-          }));
+            "<a href=\"{0}\">Next <span aria-hidden=\"true\">&rarr;</span></a>",
+            urlHelper.Action(actionName, new
+            {
+                queryOptions.SortOrder,
+                queryOptions.SortField,
+                CurrentPage = queryOptions.CurrentPage + 1,
+                queryOptions.PageSize
+            }));
     }
-
 }

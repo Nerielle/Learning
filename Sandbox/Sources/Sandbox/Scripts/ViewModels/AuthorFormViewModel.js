@@ -12,22 +12,23 @@
         Biography: ko.observable(author.Biography)
     };
     self.ValidateAndSave = function (form) {
-        if ($(form).valid() == false) {
+        if (!$(form).valid())
             return false;
-        }
 
-        self.Sending(true);
-        self.Author.__RequestVerificationToken = form[0].value;
+        self.sending(true);
+
+        // include the anti forgery token
+        self.author.__RequestVerificationToken = form[0].value;
 
         $.ajax({
-            url: self.isCreating ? 'Create' : 'Edit',
-            type: 'post',
-            contentType: 'application/x-www-form-urlencoded',
-            data: ko.toJS(self.Author)
+            url: '/api/authors',
+            type: (self.isCreating) ? 'post' : 'put',
+            contentType: 'application/json',
+            data: ko.toJSON(self.author)
         })
-        .success(self.successfullSave)
+        .success(self.successfulSave)
         .error(self.errorSave)
-        .complete(function () { self.Sending(false) });
+        .complete(function () { self.sending(false) });
     };
     self.successfullSave = function () {
         self.SaveCompleted(true);
