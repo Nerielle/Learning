@@ -1,6 +1,4 @@
-﻿using Sandbox.Models;
-
-namespace Sandbox.ViewModels
+﻿namespace Sandbox.ViewModels
 {
     public class QueryOptions
     {
@@ -11,16 +9,15 @@ namespace Sandbox.ViewModels
             CurrentPage = 1;
             PageSize = 3;
         }
+
         public int CurrentPage { get; set; }
-
         public int TotalPages { get; set; }
-
         public int PageSize { get; set; }
         public string SortField { get; set; }
         public SortOrder SortOrder { get; set; }
-        public string Sort { get
-            {
-                return string.Format("{0} {1}", SortField, SortOrder.ToString());
-            } }
+        public string Sort
+        {
+            get { return string.Format("{0} {1}", SortField, SortOrder); }
+        }
     }
 }

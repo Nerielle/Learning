@@ -39,9 +39,9 @@ public static class HtmlHelperExtensions
             "<nav>" +
             "    <ul class=\"pager\">" +
             "      <li data-bind=\"css: pagingService.buildPreviousClass()\">" +
-            "       <a href=\"{0}\" data-bind=\"click: pagingService.previousPage\">Previous </ a ></ li > " +
+            "       <a href=\"{0}\" data-bind=\"click: pagingService.previousPage\">Previous </a></li>" +
             "      <li data-bind=\"css: pagingService.buildNextClass()\">" +
-            "       <a href=\"{0}\" data-bind=\"click: pagingService.nextPage\">Next </ a ></ li ></ li > " +
+            "       <a href=\"{0}\" data-bind=\"click: pagingService.nextPage\">Next</a></li></li> " +
             "    </ul>" +
             "</nav>",
             @urlHelper.Action(actionName)

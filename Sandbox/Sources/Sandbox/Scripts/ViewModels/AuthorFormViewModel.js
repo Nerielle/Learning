@@ -11,25 +11,6 @@
         LastName: ko.observable(author.LastName),
         Biography: ko.observable(author.Biography)
     };
-    self.ValidateAndSave = function (form) {
-        if (!$(form).valid())
-            return false;
-
-        self.sending(true);
-
-        // include the anti forgery token
-        self.author.__RequestVerificationToken = form[0].value;
-
-        $.ajax({
-            url: '/api/authors',
-            type: (self.isCreating) ? 'post' : 'put',
-            contentType: 'application/json',
-            data: ko.toJSON(self.author)
-        })
-        .success(self.successfulSave)
-        .error(self.errorSave)
-        .complete(function () { self.sending(false) });
-    };
     self.successfullSave = function () {
         self.SaveCompleted(true);
         $('.body-content').prepend(
@@ -44,10 +25,31 @@
             }
         }, 1000);
     };
-
     self.errorSave = function () {
         $('.body-content').prepend(
             '<div class="alert alert-danger"><strong>There was an error</strong></div>'
             );
     };
+    self.ValidateAndSave = function (form) {
+        if (!$(form).valid())
+            return false;
+
+        self.Sending(true);
+
+        // include the anti forgery token
+        self.Author.__RequestVerificationToken = form[0].value;
+
+        $.ajax({
+            url: '/api/authors',
+            type: (self.isCreating) ? 'post' : 'put',
+            contentType: 'application/json',
+            data: ko.toJSON(self.Author)
+        })
+        .success(self.successfulSave)
+        .error(self.errorSave)
+        .complete(function () { self.Sending(false) });
+    };
+    
+
+   
 };

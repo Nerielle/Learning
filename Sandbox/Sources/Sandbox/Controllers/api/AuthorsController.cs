@@ -73,7 +73,7 @@ namespace Sandbox.Controllers.api
             db.Authors.Add(AutoMapper.Mapper.Map<AuthorViewModel, Author>(author));
             db.SaveChanges();
 
-            return CreatedAtRoute("DefaultApi", new { id = author.Id }, author);
+            return CreatedAtRoute("DefaultApi", new { Id = author.Id }, author);
         }
 
         protected override void Dispose(bool disposing)

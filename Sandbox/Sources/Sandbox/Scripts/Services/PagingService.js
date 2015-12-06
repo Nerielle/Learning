@@ -23,8 +23,8 @@
     self.updateResultList(resultList);
 
     self.sortEntitiesBy = function(data, event) {
-        var sortField = $(event.target).data('sortField');
-        if (sortField == self.queryOptions.sortField() && self.queryOptions.sortOrder == 'ASC') {
+        var sortField = $(event.target).data("sortField");
+        if (sortField == self.queryOptions.sortField() && self.queryOptions.sortOrder == "ASC") {
             self.queryOptions.sortOrder("DESC");
         } else {
             self.queryOptions.sortOrder("ASC");
@@ -50,44 +50,51 @@
     };
 
     self.fetchEntities = function(event) {
-        var fetchUrl = '/api/' + $(event.target).attr('href');
-        fetchUrl += "?sortField=" + self.queryOptions.sortField();
-        fetchUrl += "&sortOrder=" + self.queryOptions.sortOrder();
-        fetchUrl += "&currentPage=" + self.queryOptions.currentPage();
-        fetchUrl += "&pageSize=" + self.queryOptions.pageSize();
+        var url = "/api/" + $(event.target).attr("href");
+        url += "?sortField=" + self.queryOptions.sortField();
+        url += "&sortOrder=" + self.queryOptions.sortOrder();
+        url += "&currentPage=" + self.queryOptions.currentPage();
+        url += "&pageSize=" + self.queryOptions.pageSize();
 
         $.ajax({
-            dataType: 'json',
-            url: fetchUrl
+            dataType: "json",
+            url: url
         }).success(function(data) {
             self.updateResultList(data);
         }).error(function() {
-            $.ajax('.body-content').prepend('<div class="alert alert-danger"><strong>Error!</strong> There was an error fetching the data.</div>');
-        });
-        self.buildSortIcon = function(sortField) {
-            return ko.pureComputed(function() {
-                var sortIcon = 'sort';
-                if (self.queryOptions.sortField() == sortField) {
-                    sortIcon += '-by-alphabet';
-                    if (self.queryOptions.sortOrder() == "DESC")
-                        sortIcon += '-alt';
-                }
-                return 'glyphicon glyphicon-' + sortIcon;
-            });
-        };
-
-        self.buildPreviousClass = ko.pureComputed(function() {
-            var className = 'previous';
-            if (self.queryOptions.currentPage() == 1)
-                className += 'disabled';
-            return className;
-        });
-
-        self.buildNextClass = ko.pureComputed(function() {
-            var className = 'next';
-            if (self.queryOptions.currentPage() == self.queryOptions.totalPages())
-                className += ' disabled';
-            return className;
+            $(".body-content")
+                .prepend("<div class=\"alert alert-danger\"><strong>Error! </strong> There was an error fetching the data.</div> ");;
         });
     };
+
+    self.buildSortIcon = function(sortField) {
+        return ko.pureComputed(function() {
+            var sortIcon = "sort";
+
+            if (self.queryOptions.sortField() == sortField) {
+                sortIcon += "-by-alphabet";
+                if (self.queryOptions.sortOrder() == "DESC")
+                    sortIcon += "-alt";
+            }
+
+            return "glyphicon glyphicon-" + sortIcon;
+        });
+    };
+
+    self.buildPreviousClass = ko.pureComputed(function() {
+        var className = "previous";
+
+        if (self.queryOptions.currentPage() == 1)
+            className += " disabled";
+
+        return className;
+    });
+    self.buildNextClass = ko.pureComputed(function() {
+        var className = "next";
+
+        if (self.queryOptions.currentPage() == self.queryOptions.totalPages())
+            className += " disabled";
+
+        return className;
+    });
 }
