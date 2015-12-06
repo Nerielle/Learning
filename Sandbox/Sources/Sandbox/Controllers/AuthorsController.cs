@@ -2,20 +2,20 @@
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
+using System.Linq.Dynamic;
 using System.Net;
-using System.Web.Mvc;
 using System.Web.ModelBinding;
+using System.Web.Mvc;
+using AutoMapper;
 using Sandbox.DAL;
 using Sandbox.Models;
-using System.Linq.Dynamic;
-using AutoMapper;
 using Sandbox.ViewModels;
 
 namespace Sandbox.Controllers
 {
     public class AuthorsController : Controller
     {
-        private BookContext db = new BookContext();
+        private readonly BookContext db = new BookContext();
 
         static AuthorsController()
         {
@@ -25,13 +25,24 @@ namespace Sandbox.Controllers
         // GET: Authors
         public ActionResult Index([Form] QueryOptions queryOptions)
         {
-            var start = (queryOptions.CurrentPage - 1) * queryOptions.PageSize;
-            var authors = db.Authors.OrderBy(queryOptions.Sort)
-                .Skip(start)
-                .Take(queryOptions.PageSize);
-            queryOptions.TotalPages = (int)Math.Ceiling((double)db.Authors.Count() / queryOptions.PageSize);
-            ViewBag.QueryOptions = queryOptions;
-            return View(AutoMapper.Mapper.Map<List<Author>, List<AuthorViewModel>>(authors.ToList()));
+            var start = (queryOptions.CurrentPage - 1)*queryOptions.PageSize;
+
+            var authors = db.Authors.
+                OrderBy(queryOptions.Sort).
+                Skip(start).
+                Take(queryOptions.PageSize);
+
+            queryOptions.TotalPages =
+                (int) Math.Ceiling((double) db.Authors.Count()/queryOptions.PageSize);
+
+            Mapper.CreateMap<Author, AuthorViewModel>();
+
+            return View(new ResultList<AuthorViewModel>
+            {
+                QueryOptions = queryOptions,
+                Results = Mapper.Map<List<Author>,
+                    List<AuthorViewModel>>(authors.ToList())
+            });
         }
 
         // GET: Authors/Details/5
@@ -41,7 +52,7 @@ namespace Sandbox.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Author author = db.Authors.Find(id);
+            var author = db.Authors.Find(id);
             if (author == null)
             {
                 return HttpNotFound();
@@ -64,7 +75,7 @@ namespace Sandbox.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Authors.Add(AutoMapper.Mapper.Map<AuthorViewModel, Author>(author));
+                db.Authors.Add(Mapper.Map<AuthorViewModel, Author>(author));
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
@@ -79,12 +90,12 @@ namespace Sandbox.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Author author = db.Authors.Find(id);
+            var author = db.Authors.Find(id);
             if (author == null)
             {
                 return HttpNotFound();
             }
-            return View("Form", AutoMapper.Mapper.Map<Author, AuthorViewModel>(author));
+            return View("Form", Mapper.Map<Author, AuthorViewModel>(author));
         }
 
         // POST: Authors/Edit/5
@@ -96,7 +107,7 @@ namespace Sandbox.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Entry(AutoMapper.Mapper.Map<AuthorViewModel, Author>(author)).State = EntityState.Modified;
+                db.Entry(Mapper.Map<AuthorViewModel, Author>(author)).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
@@ -110,12 +121,12 @@ namespace Sandbox.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Author author = db.Authors.Find(id);
+            var author = db.Authors.Find(id);
             if (author == null)
             {
                 return HttpNotFound();
             }
-            return View(AutoMapper.Mapper.Map<Author, AuthorViewModel>(author));
+            return View(Mapper.Map<Author, AuthorViewModel>(author));
         }
 
         // POST: Authors/Delete/5
@@ -123,7 +134,7 @@ namespace Sandbox.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Author author = db.Authors.Find(id);
+            var author = db.Authors.Find(id);
             db.Authors.Remove(author);
             db.SaveChanges();
             return RedirectToAction("Index");
