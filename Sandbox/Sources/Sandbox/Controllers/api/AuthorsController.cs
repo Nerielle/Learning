@@ -1,14 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Data;
 using System.Data.Entity;
-using System.Data.Entity.Infrastructure;
 using System.Linq;
 using System.Linq.Dynamic;
 using System.Net;
-using System.Net.Http;
 using System.Web.Http;
 using System.Web.Http.Description;
+using AutoMapper;
 using Sandbox.DAL;
 using Sandbox.Models;
 using Sandbox.ViewModels;
@@ -33,13 +31,9 @@ namespace Sandbox.Controllers.api
             queryOptions.TotalPages =
               (int)Math.Ceiling((double)db.Authors.Count() / queryOptions.PageSize);
 
-            AutoMapper.Mapper.CreateMap<Author, AuthorViewModel>();
+            Mapper.CreateMap<Author, AuthorViewModel>();
 
-            return new ResultList<AuthorViewModel>
-            {
-                QueryOptions = queryOptions,
-                Results = AutoMapper.Mapper.Map<List<Author>, List<AuthorViewModel>>(authors.ToList())
-            };
+            return new ResultList<AuthorViewModel>(Mapper.Map<List<Author>, List<AuthorViewModel>>(authors.ToList()), queryOptions);
         }
 
         // PUT: api/Authors/5
@@ -51,8 +45,8 @@ namespace Sandbox.Controllers.api
                 return BadRequest(ModelState);
             }
 
-            AutoMapper.Mapper.CreateMap<AuthorViewModel, Author>();
-            db.Entry(AutoMapper.Mapper.Map<AuthorViewModel, Author>(author)).State
+            Mapper.CreateMap<AuthorViewModel, Author>();
+            db.Entry(Mapper.Map<AuthorViewModel, Author>(author)).State
                               = EntityState.Modified;
 
             db.SaveChanges();
@@ -69,8 +63,8 @@ namespace Sandbox.Controllers.api
                 return BadRequest(ModelState);
             }
 
-            AutoMapper.Mapper.CreateMap<AuthorViewModel, Author>();
-            db.Authors.Add(AutoMapper.Mapper.Map<AuthorViewModel, Author>(author));
+            Mapper.CreateMap<AuthorViewModel, Author>();
+            db.Authors.Add(Mapper.Map<AuthorViewModel, Author>(author));
             db.SaveChanges();
 
             return CreatedAtRoute("DefaultApi", new { Id = author.Id }, author);
