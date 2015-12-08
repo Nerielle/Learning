@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Web.Mvc;
 using AutoMapper;
 using Sandbox.ViewModels;
-using FilterAttribute = System.Web.Http.Filters.FilterAttribute;
 
 namespace Sandbox.Filters
 {
