@@ -28,17 +28,18 @@ namespace Sandbox.Controllers
         {
             var start = (queryOptions.CurrentPage - 1) * queryOptions.PageSize;
 
-            var authors = db.Authors.
-                OrderBy(queryOptions.Sort).
-                Skip(start).
-                Take(queryOptions.PageSize);
+            var authors = db.Authors
+                .OrderBy(queryOptions.Sort)
+                .Skip(start)
+                .Take(queryOptions.PageSize)
+                .ToList();
 
             queryOptions.TotalPages =
                 (int)Math.Ceiling((double)db.Authors.Count() / queryOptions.PageSize);
           
             ViewData["QueryOptions"] = queryOptions;
 
-            return View(authors.ToList());
+            return View(authors);
         }
 
         // GET: Authors/Details/5

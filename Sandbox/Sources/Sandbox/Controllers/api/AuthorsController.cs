@@ -23,17 +23,18 @@ namespace Sandbox.Controllers.api
         {
             var start = (queryOptions.CurrentPage - 1) * queryOptions.PageSize;
 
-            var authors = db.Authors.
-              OrderBy(queryOptions.Sort).
-              Skip(start).
-              Take(queryOptions.PageSize);
+            var authors = db.Authors
+              .OrderBy(queryOptions.Sort)
+              .Skip(start)
+              .Take(queryOptions.PageSize)
+              .ToList();
 
             queryOptions.TotalPages =
               (int)Math.Ceiling((double)db.Authors.Count() / queryOptions.PageSize);
 
             Mapper.CreateMap<Author, AuthorViewModel>();
 
-            return new ResultList<AuthorViewModel>(Mapper.Map<List<Author>, List<AuthorViewModel>>(authors.ToList()), queryOptions);
+            return new ResultList<AuthorViewModel>(Mapper.Map<List<Author>, List<AuthorViewModel>>(authors), queryOptions);
         }
 
         // PUT: api/Authors/5
