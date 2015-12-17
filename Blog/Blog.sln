@@ -11,6 +11,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dal", "Dal\Dal.csproj", "{F
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitTests", "UnitTests\UnitTests.csproj", "{C08B2406-0C90-4E07-A2BB-79F5610387F3}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlogWithAngular", "BlogWithAngular\BlogWithAngular.csproj", "{7A2A8D63-B447-467D-B580-78D8E0F991FC}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -35,6 +37,10 @@ Global
 		{C08B2406-0C90-4E07-A2BB-79F5610387F3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C08B2406-0C90-4E07-A2BB-79F5610387F3}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C08B2406-0C90-4E07-A2BB-79F5610387F3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7A2A8D63-B447-467D-B580-78D8E0F991FC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7A2A8D63-B447-467D-B580-78D8E0F991FC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7A2A8D63-B447-467D-B580-78D8E0F991FC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7A2A8D63-B447-467D-B580-78D8E0F991FC}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
