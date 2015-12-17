@@ -53,7 +53,7 @@ namespace Blog.Controllers
         }
 
         [HttpPost]
-        public void SaveComment(Comment comment)
+        public Comment SaveComment(Comment comment)
         {
             using (var repository1 = new Repository())
             {
@@ -61,7 +61,9 @@ namespace Blog.Controllers
                 comment.Date = DateTime.Now;
                 article.Comments.Add(comment);
                 repository1.Save(article);
+                return comment;
             }
+
         }
 
 

@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 using System.Linq.Dynamic;
@@ -8,6 +7,7 @@ using System.Web.ModelBinding;
 using System.Web.Mvc;
 using AutoMapper;
 using Sandbox.DAL;
+using Sandbox.Filters;
 using Sandbox.Models;
 using Sandbox.ViewModels;
 
@@ -23,26 +23,23 @@ namespace Sandbox.Controllers
         }
 
         // GET: Authors
+        [GenerateResultListFilter(typeof(Author), typeof(AuthorViewModel))]
         public ActionResult Index([Form] QueryOptions queryOptions)
         {
-            var start = (queryOptions.CurrentPage - 1)*queryOptions.PageSize;
+            var start = (queryOptions.CurrentPage - 1) * queryOptions.PageSize;
 
-            var authors = db.Authors.
-                OrderBy(queryOptions.Sort).
-                Skip(start).
-                Take(queryOptions.PageSize);
+            var authors = db.Authors
+                .OrderBy(queryOptions.Sort)
+                .Skip(start)
+                .Take(queryOptions.PageSize)
+                .ToList();
 
             queryOptions.TotalPages =
-                (int) Math.Ceiling((double) db.Authors.Count()/queryOptions.PageSize);
+                (int)Math.Ceiling((double)db.Authors.Count() / queryOptions.PageSize);
+          
+            ViewData["QueryOptions"] = queryOptions;
 
-            Mapper.CreateMap<Author, AuthorViewModel>();
-
-            return View(new ResultList<AuthorViewModel>
-            {
-                QueryOptions = queryOptions,
-                Results = Mapper.Map<List<Author>,
-                    List<AuthorViewModel>>(authors.ToList())
-            });
+            return View(authors);
         }
 
         // GET: Authors/Details/5

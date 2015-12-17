@@ -38,10 +38,10 @@ public static class HtmlHelperExtensions
         return new MvcHtmlString(string.Format(
             "<nav>" +
             "    <ul class=\"pager\">" +
-            "      <li data-bind=\"css: pagingService.buildPreviousClass()\">" +
-            "       <a href=\"{0}\" data-bind=\"click: pagingService.previousPage\">Previous </a></li>" +
-            "      <li data-bind=\"css: pagingService.buildNextClass()\">" +
-            "       <a href=\"{0}\" data-bind=\"click: pagingService.nextPage\">Next</a></li></li> " +
+            "        <li data-bind=\"css: pagingService.buildPreviousClass()\">" +
+            "           <a href=\"{0}\" data-bind=\"click: pagingService.previousPage\">Previous</a></li>" +
+            "        <li data-bind=\"css: pagingService.buildNextClass()\">" +
+            "           <a href=\"{0}\" data-bind=\"click: pagingService.nextPage\">Next</a></li></li>" +
             "    </ul>" +
             "</nav>",
             @urlHelper.Action(actionName)
@@ -80,9 +80,9 @@ public static class HtmlHelperExtensions
                 {
                     SortField = sortField,
                     SortOrder = (isCurrentSortField
-                                 && queryOptions.SortOrder == SortOrder.Asc)
-                        ? SortOrder.Desc
-                        : SortOrder.Asc
+                                 && queryOptions.SortOrder == SortOrder.ASC)
+                        ? SortOrder.DESC
+                        : SortOrder.ASC
                 }),
             fieldName,
             BuildSortIcon(isCurrentSortField, queryOptions)));
@@ -96,7 +96,7 @@ public static class HtmlHelperExtensions
         if (isCurrentSortField)
         {
             sortIcon += "-by-alphabet";
-            if (queryOptions.SortOrder == SortOrder.Desc)
+            if (queryOptions.SortOrder == SortOrder.DESC)
                 sortIcon += "-alt";
         }
 
