@@ -1,38 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Web.Http;
-using Dal;
+using System.Linq;
+using System.Web;
+using System.Web.Mvc;
 
 namespace BlogWithAngular.Controllers
 {
-    public class ArticleController : ApiController
+    public class ArticleController : Controller
     {
-        private readonly Repository repository = new Repository();
-        // DELETE: api/Article/5
-        public void Delete(int id)
+        // GET: Article
+        public ActionResult Index()
         {
-        }
-
-        // GET: api/Article
-        public IEnumerable<Article> Get()
-        {
-            return repository.GetArticles();
-        }
-
-        // GET: api/Article/5
-        public Article Get(Guid id)
-        {
-            return repository.GetById<Article>(id);
-        }
-
-        // POST: api/Article
-        public void Post([FromBody] string value)
-        {
-        }
-
-        // PUT: api/Article/5
-        public void Put(int id, [FromBody] string value)
-        {
+            return View();
         }
     }
 }
