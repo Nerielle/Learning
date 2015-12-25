@@ -1,35 +1,25 @@
-﻿<!DOCTYPE html>
-
-<html ng-app="crudModule">
-@{
-    ViewBag.Title = "Index";
+﻿@{
+    ViewBag.Title = "Articles";
 }
 
-<head>
-    <meta name="viewport" content="width=device-width"/>
-    <title>Index</title>
-
-</head>
-<body>
 <h2 class="h2">Articles</h2>
 <div ng-controller="articleController">
-    <div class="col-lg-6 list-group">
+    <div class="list-group">
         <a href="#" class="list-group-item" ng-repeat="article in articles">
-            <h4 class="list-group-item-heading">{{article.title}}</h4>
-
-            <p class="list-group-item-text">{{article.description}}</p>
-            @*<span class="label label-default col-xs-2">{{article.date}}</span>*@
-
+            @*<div class="row">*@
+                <h4 class="list-group-item-heading">{{article.title}}</h4>
+            @*</div>*@
+            <div class="row">
+                <p class="list-group-item-text col-sm-11">{{article.description}}</p>
+                <span class="small text-muted col-sm-1">{{article.date}}</span>
+            </div>
 
         </a>
     </div>
 
 </div>
-</body>
-
-</html>
-<script src="/Scripts/angular.js"></script>
-<script src="/Scripts/angular-route.js"></script>
-<script src="/Scripts/Custom/crud-module.js"></script>
-<script src="/Scripts/Custom/article-service.js"></script>
-<script src="/Scripts/Custom/article-controller.js"></script>
+@section Scripts{
+    @Scripts.Render("/Scripts/Custom/crud-module.js")
+    @Scripts.Render("/Scripts/Custom/article-service.js")
+    @Scripts.Render("/Scripts/Custom/article-controller.js")
+}
