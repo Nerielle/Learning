@@ -17,6 +17,7 @@ namespace Dal.Mapping
                 {
                     x.Column("ArticleId");
                     x.NotNullable(false);
+                    map.Lazy(CollectionLazy.NoLazy);
                 });
 
             }, map=>map.OneToMany());

@@ -23,7 +23,7 @@ namespace BlogWithAngular.Controllers.Api
         // GET: api/Article/5
         public Article Get(Guid id)
         {
-            return repository.GetById<Article>(id);
+            return repository.GetArticleWithCommentsById(id);
         }
 
         // POST: api/Article

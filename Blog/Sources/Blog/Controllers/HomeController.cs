@@ -2,7 +2,6 @@
 using System.Linq;
 using System.Web.Mvc;
 using Dal;
-using Dal.Mapping;
 
 namespace Blog.Controllers
 {
@@ -12,7 +11,7 @@ namespace Blog.Controllers
 
         public ActionResult Index()
         {
-            var articles = repository.GetArticles().OrderByDescending(x=>x.Date).ToList();
+            var articles = repository.GetAllArticlesWithComments().OrderByDescending(x=>x.Date).ToList();
             return View(articles);
         }
 
@@ -57,7 +56,7 @@ namespace Blog.Controllers
         {
             using (var repository1 = new Repository())
             {
-                var article = repository1.GetById<Article>(comment.ArticleId);
+                var article = repository1.GetArticleWithCommentsById(comment.ArticleId);
                 comment.Date = DateTime.Now;
                 article.Comments.Add(comment);
                 repository1.Save(article);
