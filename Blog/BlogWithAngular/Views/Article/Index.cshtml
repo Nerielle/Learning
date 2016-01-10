@@ -6,12 +6,10 @@
 <div ng-controller="articleController">
     <div class="list-group">
         <a href="#" class="list-group-item" ng-repeat="article in articles">
-            @*<div class="row">*@
                 <h4 class="list-group-item-heading">{{article.title}}</h4>
-            @*</div>*@
             <div class="row">
-                <p class="list-group-item-text col-sm-11">{{article.description}}</p>
-                <span class="small text-muted col-sm-1">{{article.date}}</span>
+                <p class="list-group-item-text col-xs-11">{{article.description}}</p>
+                <span class="small text-muted col-xs-1">{{article.date}}</span>
             </div>
 
         </a>

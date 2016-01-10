@@ -10,5 +10,19 @@
         
     }
 
+    function get(article) {
+        var promiseGetSingle = articleService.get(article.id);
+
+        promiseGetSingle.then(function (pl) {
+            var res = pl.data;
+            $scope.id = res.id;
+            $scope.title = res.title;
+                $scope.content = res.content;
+            },
+                  function (errorPl) {
+                      console.log('failure loading article', errorPl);
+                  });
+    }
     loadArticles();
+
 })
