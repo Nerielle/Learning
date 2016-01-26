@@ -4,7 +4,7 @@
     {
         public UserMap()
         {
-            Table("User");
+            Table("dbo.[User]");
             Property(x => x.Name);
             Bag(x => x.Registrations,
                 colmap => colmap.Key(x => x.Column("UserId")),

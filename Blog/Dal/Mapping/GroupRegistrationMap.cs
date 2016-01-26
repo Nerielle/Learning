@@ -6,8 +6,8 @@
         {
             Table("Registrations");
 
-            ManyToOne(x => x.Group);//, map=>map.NotNullable(true));
-            ManyToOne(x => x.User); //, map => map.NotNullable(true));
+            ManyToOne(x => x.Group, map=> map.Column("GroupId"));
+            ManyToOne(x => x.User, map => map.Column("UserId"));
         }
     }
 }
