@@ -51,5 +51,10 @@ namespace Dal
         {
             session.Delete(domainObject);
         }
+
+        public void Delete(string query)
+        {
+            session.Delete(query);
+        }
     }
 }
