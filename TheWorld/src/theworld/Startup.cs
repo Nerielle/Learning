@@ -8,6 +8,7 @@ using Microsoft.AspNet.Http;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.PlatformAbstractions;
+using theworld.Models;
 using theworld.Services;
 
 namespace theworld
@@ -29,6 +30,9 @@ namespace theworld
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc();
+            services.AddEntityFramework()
+                .AddSqlServer()
+                .AddDbContext<WorldContext>();
 #if DEBUG
             services.AddScoped<IMailService, DebugMailService>();
 #endif
