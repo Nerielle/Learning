@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Dal;
+using HibernatingRhinos.Profiler.Appender.NHibernate;
 using NHibernate;
 using NHibernate.Linq;
 using NHibernate.Util;
@@ -14,6 +15,7 @@ namespace UnitTests
         [Fact]
         public void TestCache()
         {
+            NHibernateProfiler.Initialize();
             var groupNames = new[] {"a1", "b1", "c1"};
             using (var session = SessionFactory.OpenSession())
             using (var tx = session.BeginTransaction())
@@ -51,7 +53,12 @@ namespace UnitTests
                 user.Registrations.Add(registration);
                 group.Registrations.Add(registration);
                 session.Save(registration);
+                session.Flush();
                 tx.Commit();
+            }
+            using (var session = SessionFactory.OpenSession())
+            {
+                var g = GetGroups(session);
             }
             using (var session = SessionFactory.OpenSession())
             {

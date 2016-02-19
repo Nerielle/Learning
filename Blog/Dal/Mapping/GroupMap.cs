@@ -10,7 +10,11 @@ namespace Dal.Mapping
             Cache(x => x.Usage(CacheUsage.ReadOnly));
             Property(x => x.Name);
             Bag(x => x.Registrations,
-                colmap => colmap.Key(x => x.Column("GroupId")),
+                colmap =>
+                {
+                    colmap.Key(x => x.Column("GroupId"));
+                    colmap.Cascade(Cascade.None);
+                },
                 map=>map.OneToMany());
         }
     }
