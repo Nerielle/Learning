@@ -1,17 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using AutoMapper;
 using Microsoft.AspNet.Builder;
 using Microsoft.AspNet.Hosting;
-using Microsoft.AspNet.Http;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.PlatformAbstractions;
-
+using Newtonsoft.Json.Serialization;
 using theworld.Models;
 using theworld.Services;
+using theworld.ViewModels;
 
 namespace theworld
 {
@@ -21,7 +18,7 @@ namespace theworld
 
         public Startup(IApplicationEnvironment applicationEnvironment)
         {
-            IConfigurationBuilder builder = new ConfigurationBuilder()
+            var builder = new ConfigurationBuilder()
                 .SetBasePath(applicationEnvironment.ApplicationBasePath)
                 .AddJsonFile("config.json")
                 .AddEnvironmentVariables();
@@ -38,14 +35,17 @@ namespace theworld
 
             app.UseStaticFiles();
 
+            Mapper.Initialize(config =>
+            {
+                config.CreateMap<Trip, TripViewModel>().ReverseMap();
+            });
+
             app.UseMvc(config =>
             {
-                config.MapRoute(
-                    name: "Default",
-                    template: "{controller}/{action}/{id?}",
-                    defaults: new { controller = "App", action = "Index" }
+                config.MapRoute("Default", "{controller}/{action}/{id?}", new {controller = "App", action = "Index"}
                     );
             });
+
             seeder.EnsureSeedData();
         }
 
@@ -53,7 +53,8 @@ namespace theworld
         // For more information on how to configure your application, visit http://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddMvc();
+            services.AddMvc()
+                .AddJsonOptions(x=> x.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver());
             services.AddLogging();
             services.AddEntityFramework()
                 .AddSqlServer()

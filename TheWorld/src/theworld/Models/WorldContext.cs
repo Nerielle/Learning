@@ -5,7 +5,7 @@ namespace theworld.Models
 {
     public class WorldContext : DbContext
     {
-        protected WorldContext()
+        public WorldContext()
         {
             Database.EnsureCreated();
         }

@@ -3,6 +3,6 @@
         "SiteEmailAddress": "me@al.com"
     },
     "Data": {
-        "WorldContextConnection": "Server=(localdb)\\ProjectsV12;Database=TheWorldDb;Trusted_Connection=true;MultipleActiveResultSets=true"
+        "WorldContextConnection": "Server=.\\sqlexpress;Database=TheWorldDb;Trusted_Connection=true;MultipleActiveResultSets=true"
     }
 }s
