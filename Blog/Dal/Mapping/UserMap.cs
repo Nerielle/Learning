@@ -1,4 +1,6 @@
-﻿namespace Dal.Mapping
+﻿using NHibernate.Mapping.ByCode;
+
+namespace Dal.Mapping
 {
     public class UserMap : DomainObjectMap<User>
     {
@@ -7,7 +9,10 @@
             Table("dbo.[User]");
             Property(x => x.Name);
             Bag(x => x.Registrations,
-                colmap => colmap.Key(x => x.Column("UserId")),
+                colmap =>
+                {
+                    colmap.Key(x => x.Column("UserId"));
+                },
                 map => map.OneToMany());
         }
     }

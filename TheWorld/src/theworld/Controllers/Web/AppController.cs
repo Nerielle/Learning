@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
 using Microsoft.AspNet.Mvc;
 using theworld.Models;
 using theworld.Services;
@@ -9,18 +10,18 @@ namespace theworld.Controllers.Web
     public class AppController : Controller
     {
         private readonly IMailService mailService;
-        private WorldContext worldContext;
+        private IWorldRepository repository;
 
-        public AppController(IMailService service, WorldContext context)
+        public AppController(IMailService service, IWorldRepository context)
         {
             mailService = service;
-            worldContext = context;
+            repository = context;
         }
 
         public IActionResult Index()
         {
-            var trips = worldContext.Trips.OrderBy(x=>x.Name).ToList();
-            return View();
+            var trips = repository.GetAllTrips();
+            return View(trips);
         }
 
         public IActionResult About()

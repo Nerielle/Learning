@@ -1,5 +1,8 @@
 ﻿{
-  "AppSettings": {
-    "SiteEmailAddress": "me@al.com"
-  }
-}
+    "AppSettings": {
+        "SiteEmailAddress": "me@al.com"
+    },
+    "Data": {
+        "WorldContextConnection": "Server=(localdb)\\ProjectsV12;Database=TheWorldDb;Trusted_Connection=true;MultipleActiveResultSets=true"
+    }
+}s

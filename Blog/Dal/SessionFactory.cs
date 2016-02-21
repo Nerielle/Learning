@@ -1,11 +1,12 @@
 ﻿using System;
 using System.Reflection;
 using NHibernate;
+using NHibernate.Caches.SysCache2;
 using NHibernate.Cfg;
 using NHibernate.Dialect;
 using NHibernate.Driver;
 using NHibernate.Mapping.ByCode;
-
+using Environment = NHibernate.Cfg.Environment;
 namespace Dal
 {
     public class SessionFactory : IDisposable
@@ -24,12 +25,15 @@ namespace Dal
                     x.Driver<SqlClientDriver>();
                     x.Dialect<MsSql2012Dialect>();
                 });
+            configuration.SetProperty(Environment.UseQueryCache, "true");
+            configuration.SetProperty(Environment.UseSecondLevelCache, "true");
+            configuration.SetProperty(Environment.CacheProvider, typeof(SysCacheProvider).AssemblyQualifiedName);
             var mapper = new ModelMapper();
             mapper.AddMappings(Assembly.GetExecutingAssembly().GetExportedTypes());
 
             mapper.BeforeMapBag += (modelInspector, member1, propertyCustomizer) =>
             {
-                propertyCustomizer.Inverse(false);
+                propertyCustomizer.Inverse(true);
                 propertyCustomizer.Cascade(Cascade.All | Cascade.DeleteOrphans);
             };
             mapper.BeforeMapManyToOne +=
