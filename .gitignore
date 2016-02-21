@@ -194,3 +194,10 @@ FakesAssemblies/
 
 # Visual Studio 6 workspace options file
 *.opt
+/TheWorld/src/theworld/wwwroot/lib/jquery-validation-unobtrusive
+/TheWorld/src/theworld/wwwroot/lib/bootswatch
+/TheWorld/src/theworld/wwwroot/lib/jquery-validation
+/dashboard/dist
+/Blog/Sources/Blog/Scripts/i18n
+/Blog/Sources/Blog/Scripts
+/Blog/AngClient
