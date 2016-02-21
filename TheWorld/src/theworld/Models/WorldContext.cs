@@ -1,9 +1,11 @@
 ﻿using System;
+using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.Data.Entity;
+using Microsoft.Data.Entity.Storage;
 
 namespace theworld.Models
 {
-    public class WorldContext : DbContext
+    public class WorldContext : IdentityDbContext<WorldUser>
     {
         public WorldContext()
         {

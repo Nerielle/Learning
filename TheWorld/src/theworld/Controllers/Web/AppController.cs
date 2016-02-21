@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Linq;
+﻿using Microsoft.AspNet.Authorization;
 using Microsoft.AspNet.Mvc;
 using theworld.Models;
 using theworld.Services;
@@ -10,7 +9,7 @@ namespace theworld.Controllers.Web
     public class AppController : Controller
     {
         private readonly IMailService mailService;
-        private IWorldRepository repository;
+        private readonly IWorldRepository repository;
 
         public AppController(IMailService service, IWorldRepository context)
         {
@@ -19,6 +18,12 @@ namespace theworld.Controllers.Web
         }
 
         public IActionResult Index()
+        {
+            return View();
+        }
+
+        [Authorize]
+        public IActionResult Trips()
         {
             var trips = repository.GetAllTrips();
             return View(trips);
