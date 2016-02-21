@@ -25,9 +25,14 @@
   "frameworks": {
     "dnx451": {
       "dependencies": {
+        "System.Net.Http": "4.0.1-beta-23516"
       }
     },
-    "dnxcore50": { }
+    "dnxcore50": {
+      "dependencies": {
+        "System.Net.Http": "4.0.1-beta-23516"
+      }
+    }
   },
 
   "exclude": [

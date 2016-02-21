@@ -1,7 +1,8 @@
 ﻿{
-    "AppSettings": {
-        "SiteEmailAddress": "me@al.com"
-    },
+  "AppSettings": {
+    "SiteEmailAddress": "me@al.com",
+    "BingKey": "bingkey"
+  },
     "Data": {
         "WorldContextConnection": "Server=.\\sqlexpress;Database=TheWorldDb;Trusted_Connection=true;MultipleActiveResultSets=true"
     }
