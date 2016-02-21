@@ -45,7 +45,8 @@ namespace theworld
 
             app.UseMvc(config =>
             {
-                config.MapRoute("Default", "{controller}/{action}/{id?}", new {controller = "App", action = "Index"}
+                config.MapRoute("Default", "{controller}/{action}/{id?}",
+                    new {controller = "App", action = "Index"}
                     );
             });
 

@@ -2,7 +2,7 @@
 
 namespace theworld.Controllers
 {
-    public class AuthControllers: Controller
+    public class AuthController: Controller
     {
         public IActionResult Login()
         {
