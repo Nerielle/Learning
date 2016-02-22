@@ -35,6 +35,7 @@ namespace theworld
             loggerFactory.AddDebug(LogLevel.Warning);
 
             app.UseStaticFiles();
+
             app.UseIdentity();
 
             Mapper.Initialize(config =>
@@ -46,7 +47,7 @@ namespace theworld
             app.UseMvc(config =>
             {
                 config.MapRoute("Default", "{controller}/{action}/{id?}",
-                    new {controller = "App", action = "Index"}
+                    new {controller = "Auth", action = "Login"}
                     );
             });
 
@@ -57,8 +58,16 @@ namespace theworld
         // For more information on how to configure your application, visit http://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddMvc()
-                .AddJsonOptions(x=> x.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver());
+            services.AddMvc(config =>
+            {
+#if !DEBUG
+                config.Filters.Add(new RequireHttpsAttribute());
+#endif
+            })
+            .AddJsonOptions(opt =>
+            {
+                opt.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
+            });
 
             services.AddIdentity<WorldUser, IdentityRole>(config =>
             {
@@ -66,11 +75,14 @@ namespace theworld
                 config.Password.RequiredLength = 7;
                 config.Cookies.ApplicationCookie.LoginPath = "/Auth/Login";
             })
-            .AddEntityFrameworkStores<WorldContext>();
+                .AddEntityFrameworkStores<WorldContext>();
+
             services.AddLogging();
+
             services.AddEntityFramework()
                 .AddSqlServer()
                 .AddDbContext<WorldContext>();
+
             services.AddScoped<CoordService>();
             services.AddTransient<WorldContextSeedData>();
             services.AddScoped<IWorldRepository, WorldRepository>();
