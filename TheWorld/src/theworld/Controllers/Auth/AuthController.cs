@@ -11,7 +11,7 @@ namespace theworld.Controllers
 {
     public class AuthController : Controller
     {
-        private readonly SignInManager<WorldUser> signInManager;
+        private SignInManager<WorldUser> signInManager;
 
         public AuthController(SignInManager<WorldUser> signInManager)
         {
@@ -29,7 +29,7 @@ namespace theworld.Controllers
             
         }
         [HttpPost]
-        public async Task<IActionResult> Login(LoginViewModel vm, string returnUrl)
+        public async Task<ActionResult> Login(LoginViewModel vm, string returnUrl)
         {
                 if (ModelState.IsValid)
                 {
