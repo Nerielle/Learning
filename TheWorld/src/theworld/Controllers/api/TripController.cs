@@ -4,7 +4,6 @@ using System.Net;
 using AutoMapper;
 using Microsoft.AspNet.Authorization;
 using Microsoft.AspNet.Mvc;
-using Microsoft.AspNet.Server.Kestrel.Http;
 using Microsoft.Extensions.Logging;
 using theworld.Models;
 using theworld.ViewModels;
@@ -16,8 +15,8 @@ namespace theworld.Controllers.api
     [Route("api/trips")]
     public class TripController : Controller
     {
-        private readonly IWorldRepository repository;
-        private readonly ILogger<TripController> logger; 
+        private IWorldRepository repository;
+        private ILogger<TripController> logger; 
 
         public TripController(IWorldRepository repository, ILogger<TripController> logger)
         {
