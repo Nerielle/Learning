@@ -1,4 +1,7 @@
-﻿using AutoMapper;
+﻿using System.Net;
+using System.Threading.Tasks;
+using AutoMapper;
+using Microsoft.AspNet.Authentication.Cookies;
 using Microsoft.AspNet.Builder;
 using Microsoft.AspNet.Hosting;
 using Microsoft.AspNet.Identity.EntityFramework;
@@ -47,7 +50,7 @@ namespace theworld
             app.UseMvc(config =>
             {
                 config.MapRoute("Default", "{controller}/{action}/{id?}",
-                    new {controller = "Auth", action = "Login"}
+                    new { controller = "App", action = "Index" }
                     );
             });
 
@@ -74,6 +77,22 @@ namespace theworld
                 config.User.RequireUniqueEmail = true;
                 config.Password.RequiredLength = 7;
                 config.Cookies.ApplicationCookie.LoginPath = "/Auth/Login";
+                config.Cookies.ApplicationCookie.Events = new CookieAuthenticationEvents()
+                {
+                    OnRedirectToLogin = x =>
+                    {
+                        if (x.Request.Path.StartsWithSegments("/api")
+                            && x.Response.StatusCode == (int) HttpStatusCode.OK)
+                        {
+                            x.Response.StatusCode = (int) HttpStatusCode.Unauthorized;
+                        }
+                        else
+                        {
+                            x.Response.Redirect(x.RedirectUri);
+                        }
+                        return Task.FromResult(0);
+                    }
+                };
             })
                 .AddEntityFrameworkStores<WorldContext>();
 

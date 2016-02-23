@@ -4,6 +4,7 @@ using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
 using AutoMapper;
+using Microsoft.AspNet.Authorization;
 using Microsoft.AspNet.Mvc;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json.Linq;
@@ -13,6 +14,7 @@ using theworld.ViewModels;
 
 namespace theworld.Controllers.api
 {
+    [Authorize]
     [Route("api/trips/{tripName}/stops")]
     public class StopController : Controller
     {
@@ -34,7 +36,7 @@ namespace theworld.Controllers.api
         {
             try
             {
-                var trip = repository.GetTripByName(tripName);
+                var trip = repository.GetTripByName(tripName, User.Identity.Name);
                 if (trip == null)
                 {
                     return Json(null);
@@ -65,7 +67,7 @@ namespace theworld.Controllers.api
 
                     newStop.Latitude = coordResult.Latitude;
                     newStop.Longitude = coordResult.Longitude;
-                    repository.AddStop(tripName, newStop);
+                    repository.AddStop(tripName, newStop, User.Identity.Name);
                     if (repository.SaveAll())
                     {
                         Response.StatusCode = (int)HttpStatusCode.Created;

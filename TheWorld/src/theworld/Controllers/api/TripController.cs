@@ -2,14 +2,17 @@
 using System.Collections.Generic;
 using System.Net;
 using AutoMapper;
+using Microsoft.AspNet.Authorization;
 using Microsoft.AspNet.Mvc;
 using Microsoft.AspNet.Server.Kestrel.Http;
 using Microsoft.Extensions.Logging;
 using theworld.Models;
 using theworld.ViewModels;
 
+
 namespace theworld.Controllers.api
 {
+    [Authorize]
     [Route("api/trips")]
     public class TripController : Controller
     {
@@ -25,8 +28,9 @@ namespace theworld.Controllers.api
         [HttpGet("")]
         public JsonResult Get()
         {
-            var trips = Mapper.Map<IEnumerable<TripViewModel>>(repository.GetAllTripsWithStops());
-            return Json(trips);
+            var trips = repository.GetUserTripsWithStops(User.Identity.Name);
+            var tripVms = Mapper.Map<IEnumerable<TripViewModel>>(trips);
+            return Json(tripVms);
         }
 
         [HttpPost("")]
@@ -37,6 +41,8 @@ namespace theworld.Controllers.api
                 if (ModelState.IsValid)
                 {
                     var newTrip = Mapper.Map<Trip>(vm);
+
+                    newTrip.UserName = User.Identity.Name;
                     repository.AddTrip(newTrip);
                     if (repository.SaveAll())
                     {
