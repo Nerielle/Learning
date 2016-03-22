@@ -7,83 +7,92 @@ using AutoMapper;
 using Microsoft.AspNet.Authorization;
 using Microsoft.AspNet.Mvc;
 using Microsoft.Extensions.Logging;
-using Newtonsoft.Json.Linq;
 using theworld.Models;
 using theworld.Services;
 using theworld.ViewModels;
 
-namespace theworld.Controllers.api
+namespace theworld.Controllers.Api
 {
-    [Authorize]
-    [Route("api/trips/{tripName}/stops")]
-    public class StopController : Controller
+  [Authorize]
+  [Route("api/trips/{tripName}/stops")]
+  public class StopController : Controller
+  {
+    private CoordService _coordService;
+    private ILogger<StopController> _logger;
+    private IWorldRepository _repository;
+
+    public StopController(IWorldRepository repository, 
+      ILogger<StopController> logger,
+      CoordService coordService)
     {
-        private readonly ILogger<StopController> logger;
-        private readonly CoordService coordService;
-        private readonly IWorldRepository repository;
-
-        public StopController(IWorldRepository repository,
-            ILogger<StopController> logger,
-            CoordService coordService)
-        {
-            this.repository = repository;
-            this.logger = logger;
-            this.coordService = coordService;
-        }
-
-        [HttpGet("")]
-        public JsonResult Get(string tripName)
-        {
-            try
-            {
-                var trip = repository.GetTripByName(tripName, User.Identity.Name);
-                if (trip == null)
-                {
-                    return Json(null);
-                }
-                return Json(Mapper.Map<IEnumerable<StopViewModel>>(trip.Stops.OrderBy(x => x.Order)));
-            }
-            catch (Exception ex)
-            {
-                logger.LogError($"Failed to get stops for trip {tripName}", ex);
-                Response.StatusCode = (int)HttpStatusCode.BadRequest;
-                return Json("Error occured finding trip name");
-            }
-        }
-
-        public async Task<JsonResult> Post(string tripName, [FromBody] StopViewModel vm)
-        {
-            try
-            {
-                if (ModelState.IsValid)
-                {
-                    var newStop = Mapper.Map<Stop>(vm);
-                    var coordResult = await coordService.Lookup(newStop.Name);
-                    if (!coordResult.Success)
-                    {
-                        Response.StatusCode = (int)HttpStatusCode.BadRequest;
-                        Json(coordResult.Message);
-                    }
-
-                    newStop.Latitude = coordResult.Latitude;
-                    newStop.Longitude = coordResult.Longitude;
-                    repository.AddStop(tripName, newStop, User.Identity.Name);
-                    if (repository.SaveAll())
-                    {
-                        Response.StatusCode = (int)HttpStatusCode.Created;
-                        return Json(Mapper.Map<StopViewModel>(newStop));
-                    }
-                }
-            }
-            catch (Exception e)
-            {
-                var message = "Failed to save new stop";
-                logger.LogError(message, e);
-                Response.StatusCode = (int) HttpStatusCode.BadRequest;
-                return Json(message);
-            }
-            Response.StatusCode = (int)HttpStatusCode.BadRequest;
-            return Json("Validation failed on new stop");
-        }
+      _repository = repository;
+      _logger = logger;
+      _coordService = coordService;
     }
+
+    [HttpGet("")]
+    public JsonResult Get(string tripName)
+    {
+      try
+      {
+        var results = _repository.GetTripByName(tripName, User.Identity.Name);
+
+        if (results == null)
+        {
+          return Json(null);
+        }
+
+        return Json(Mapper.Map<IEnumerable<StopViewModel>>(results.Stops.OrderBy(s => s.Order)));
+      }
+      catch (Exception ex)
+      {
+        _logger.LogError($"Failed to get stops for trip {tripName}", ex);
+        Response.StatusCode = (int)HttpStatusCode.BadRequest;
+        return Json("Error occurred finding trip name");
+      }
+    }
+
+    public async Task<JsonResult> Post(string tripName, [FromBody]StopViewModel vm)
+    {
+      try
+      {
+        if (ModelState.IsValid)
+        {
+          // Map to the Entity
+          var newStop = Mapper.Map<Stop>(vm);
+
+          // Looking up Geocoordinates
+          var coordResult = await _coordService.Lookup(newStop.Name);
+
+          if (!coordResult.Success)
+          {
+            Response.StatusCode = (int)HttpStatusCode.BadRequest;
+            Json(coordResult.Message);
+          }
+
+          newStop.Longitude = coordResult.Longitude;
+          newStop.Latitude = coordResult.Latitude;
+
+          // Save to the Database
+          _repository.AddStop(tripName, User.Identity.Name, newStop);
+
+          if (_repository.SaveAll())
+          {
+            Response.StatusCode = (int)HttpStatusCode.Created;
+            return Json(Mapper.Map<StopViewModel>(newStop));
+          }
+        }
+      }
+      catch (Exception ex)
+      {
+        _logger.LogError("Failed to save new stop", ex);
+        Response.StatusCode = (int)HttpStatusCode.BadRequest;
+        return Json("Failed to save new stop");
+      }
+
+      Response.StatusCode = (int)HttpStatusCode.BadRequest;
+      return Json("Validation failed on new stop");
+
+    }
+  }
 }

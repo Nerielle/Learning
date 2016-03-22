@@ -1,7 +1,9 @@
-﻿namespace theworld.Services
+using System;
+
+namespace theworld.Services
 {
-    public interface IMailService
-    {
-        bool SendMail(string to, string from, string subject, string body);
-    }
+  public interface IMailService
+  {
+    bool SendMail(string to, string from, string subject, string body);
+  }
 }
