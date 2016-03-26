@@ -8,6 +8,7 @@
         vm.tripName = $routeParams.tripName;
         vm.stops = [];
         vm.errorMessage = "";
+        vm.newStop = {};
         vm.isBusy = true;
         $http.get("/api/trips/" + vm.tripName + "/stops")
             .then(function(response) {
